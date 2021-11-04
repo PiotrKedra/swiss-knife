@@ -53,8 +53,6 @@ Open svg in any browser. Repeat these steps to generate one for the 'post' resul
 #### Flame graph for 'post'
 ![](plots/basic_task/flamegraph_post.svg)
 
-# Results (basic)
-
 # Exploration task
 
 Here we change two things: first we add caching plugin to wordpress, and then we play with the DB config. For testing, you should run everything as in a basic task. Here is what we changed:
@@ -79,4 +77,6 @@ Here we change two things: first we add caching plugin to wordpress, and then we
 #### Flame graph for 'post'
 ![](plots/exploration_task/flamegraph-post-exploration.svg)
 
-# Results (exploration)
+# Results 
+
+This report provides an exemplary setup for a WordPress blog deployed using a three container docker setup. The images used were chosen with the goal of optimizing the application for throughput while preserving a “standard” blog setup. We created a performance analysis testbench and further optimized the application in reads to caching for GET and DB-configurations for POST requests, resulting in an overall significant performance boost. Further work could include investigating other, less widely known, options for web servers and databases that could perform better for high-throughput scenarios and further tweaking configuration settings using longer tests.
