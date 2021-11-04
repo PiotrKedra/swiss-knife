@@ -53,6 +53,30 @@ Open svg in any browser. Repeat these steps to generate one for the 'post' resul
 #### Flame graph for 'post'
 ![](plots/basic_task/flamegraph_post.svg)
 
-# Results
+# Results (basic)
 
 # Exploration task
+
+Here we change two things: first we add caching plugin to wordpress, and then we play with the DB config. For testing, you should run everything as in a basic task. Here is what we changed:
+
+1. Wordpress caching plugin: You need to add 'W3 Total Cache' plugin. Activate it and go through the setup choosing all the recommended options (click on a test button, and it will tell you what is recommended)
+
+2. Database: in the /exploration folder you can find new docker-compose.yaml, that you need to switch (there is just a one change that links the config to mariandb). In /dbconfig folder there is a needed config, so if you clone the repo it should be at the place.
+
+
+# Plots
+
+![](plots/exploration_task/get_5000.png)
+![](plots/exploration_task/get_15000.png)
+![](plots/exploration_task/get_25000.png)
+![](plots/exploration_task/post_50.png)
+![](plots/exploration_task/post_150.png)
+![](plots/exploration_task/post_250.png)
+
+#### Flame graph for 'get'
+![](plots/exploration_task/flamegraph-get-exploration.svg)
+
+#### Flame graph for 'post'
+![](plots/exploration_task/flamegraph-post-exploration.svg)
+
+# Results (exploration)
