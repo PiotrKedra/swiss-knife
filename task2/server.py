@@ -1,5 +1,6 @@
 import http.server 
 import socketserver
+import socket
 
 
 class CustomHandler(http.server.BaseHTTPRequestHandler):
@@ -15,7 +16,11 @@ class CustomHandler(http.server.BaseHTTPRequestHandler):
 
 
 def run(server_class=http.server.HTTPServer, handler_class=CustomHandler):
-    server_address = ('', 8000)
+
+    # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # s.setsockopt(socket.SOL_SOCKET, 25, str("swissknife0" + '\0').encode('utf-8')) 
+
+    server_address = ('', 8004)
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
 
