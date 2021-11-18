@@ -1,27 +1,36 @@
-import http.server 
-import socketserver
 import socket
 
+def service_client(new_socket):
+    # Accept http requests from browsers
+    # GET / HTTP/1.1
+    request = new_socket.recv(1024)
+    print(request)
+    # Return http response
+    resposne = "HTTP/1.1 200 OK\r\n"
+    resposne += "\r\n"
+    resposne += "<h1>hello world</h1>"
+    new_socket.send(resposne.encode("utf-8"))
 
-class CustomHandler(http.server.BaseHTTPRequestHandler):
-    def _set_response(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-
-    def do_GET(self):
-        print("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
-        self._set_response()
-        self.wfile.write("Hello world".format(self.path).encode('utf-8'))
+    # Close
+    new_socket.close()
 
 
-def run(server_class=http.server.HTTPServer, handler_class=CustomHandler):
+def main():
+    # Create sockets
+    http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Prevent port from being occupied and unable to start program
+    http_server.setsockopt(socket.SOL_SOCKET, 25, str("swissknife0" + '\0').encode('utf-8'))
 
-    # s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # s.setsockopt(socket.SOL_SOCKET, 25, str("swissknife0" + '\0').encode('utf-8')) 
+    # Binding ports
+    http_server.bind(("", 80))
+    # Change to listening socket
+    http_server.listen(128)
+    while True:
+        # Wait to connect to the new client
+        client, info = http_server.accept()
+        # Serve this client
+        service_client(client)
 
-    server_address = ('', 8004)
-    httpd = server_class(server_address, handler_class)
-    httpd.serve_forever()
 
-run()
+if name == "main":
+    main()
