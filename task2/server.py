@@ -22,11 +22,12 @@ def main():
     http_server.setsockopt(socket.SOL_SOCKET, 25, str("swissknife0" + '\0').encode('utf-8'))
 
     # Binding ports
-    http_server.bind(("", 80))
+    http_server.bind(("192.168.55.1", 800))
     # Change to listening socket
     http_server.listen(128)
     while True:
         # Wait to connect to the new client
+        print(http_server)
         client, info = http_server.accept()
         # Serve this client
         service_client(client)
