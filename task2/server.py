@@ -19,7 +19,7 @@ def main():
     # Create sockets
     http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Prevent port from being occupied and unable to start program
-    http_server.setsockopt(socket.SOL_SOCKET, 25, str("swissknife0" + '\0').encode('utf-8'))
+    #http_server.setsockopt(socket.SOL_SOCKET, 25, str("swissknife0" + '\0').encode('utf-8'))
 
     # Binding ports
     http_server.bind(("192.168.55.1", 800))
