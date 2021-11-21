@@ -57,7 +57,7 @@ def generate_plot():
     plt.xlabel('Number of clients')
     plt.ylabel('Requests per second')
 
-    plt.savefig('plot_result.png')
+    plt.savefig('/wrk_results/plot_result.png')
 
 
 if __name__ == "__main__":
