@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 CLIENTS_NUMBERS = [1, 2, 4, 8, 16, 32]
+
 
 def get_req_per_sec_from_wrk_file(file_name):
     with open('wrk_result/' + file_name) as f:
@@ -11,27 +11,27 @@ def get_req_per_sec_from_wrk_file(file_name):
         should_start = False
         should_stop = False
         for character in lines[4]:
-            
-            if (should_start == False and character == 'c'):
+
+            if should_start == False and character == 'c':
                 should_start = True
                 continue
 
-            if (should_start == True):
-                if ( character == ' '):
-                    if (should_stop == True):
+            if should_start:
+                if character == ' ':
+                    if should_stop:
                         break
                     continue
                 else:
-                    if (character.isdigit() or character == '.'):
+                    if character.isdigit() or character == '.':
                         req_per_sec = req_per_sec + character
-                    elif (character == 'k'):
+                    elif character == 'k':
                         req_per_sec = req_per_sec.replace('.', '')
                         req_per_sec = req_per_sec + '0'
                         break
                     else:
                         break
-                    
-                    if (character == '.'):
+
+                    if character == '.':
                         should_stop = True
         return req_per_sec
 
@@ -48,10 +48,10 @@ def get_req_per_sec_per_each_clients_number():
 
 def generate_plot():
     req_per_sec_values = get_req_per_sec_per_each_clients_number()
-    X_clients_numbers = np.array(CLIENTS_NUMBERS)
+    x_clients_numbers = np.array(CLIENTS_NUMBERS)
     y_req_per_sec_values = np.array(req_per_sec_values)
 
-    plt.plot(X_clients_numbers, y_req_per_sec_values)
+    plt.plot(x_clients_numbers, y_req_per_sec_values)
 
     plt.title('Req/sec for given number of clients.')
     plt.xlabel('Number of clients')
