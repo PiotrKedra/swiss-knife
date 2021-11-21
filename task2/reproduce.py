@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.resolve()
 HAS_TTY = sys.stderr.isatty()
+
 NUMBER_CLIENTS = [1, 2, 4, 8, 16, 32]
 
 
@@ -43,7 +44,7 @@ def setup_docker() -> None:
     os.system("docker build -t plot_results_teamd -f plot.Dockerfile .")
 
 
-def evaluate(num_con, duration, port) -> None:
+def evaluate(num_con: int, duration: int, port: int) -> None:
     # run benchmarks and output the results into folder ./wrk_results
     for i in NUMBER_CLIENTS:
         info(f"Run benchmark test for {i} clients...")
@@ -53,34 +54,45 @@ def evaluate(num_con, duration, port) -> None:
         )
 
 
-def generate_graphs() -> None:
-    results = ROOT.joinpath("wrk_results")
-    if results.exists():
-        shutil.rmtree(results)
-    results.mkdir()
+def create_folder(parent: str, child: str) -> str:
+    new_folder = parent.joinpath(child)
+    if new_folder.exists():
+        shutil.rmtree(new_folder)
+    new_folder.mkdir()
 
-    # stop possible running container with server of team D
-    info(f"Stopping possible running server of team D...")
-    os.system('docker stop server_teamd')
-
-    # start server for basic task
-    info(f"Starting server of team D...")
-    os.system(f'docker run --rm -itd --net=host -v "$(pwd)/basic":/scripts --name server_teamd server_teamd')
-
-    evaluate(num_con=400, duration=10, port=800)
-
-    # stop server after basic task
-    info(f"Stopping server after basic task...")
-    os.system('docker stop server_teamd')
-
-    os.system(f'docker run --rm -it -v "$(pwd)/wrk_results":/wrk_results plot_results_teamd')
+    return new_folder
 
 
-    info("All experiments successfully reproduced!")
+def generate_graphs(experiments) -> None:
+    create_folder(ROOT, 'results')
+    results = create_folder(ROOT, 'results')
+
+    for exp in experiments:
+        create_folder(results, exp)
+
+        # stop possible running container with server of team D
+        info(f'Stopping possible running server of team D...')
+        os.system('docker stop server_teamd')
+
+        # start server for basic task
+        info(f'Starting server for experiment {exp}...')
+        os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd server_teamd')
+
+        evaluate(num_con=400, duration=10, port=800)
+
+        # stop server after basic task
+        info(f'Stopping server after experiment {exp}...')
+        os.system('docker stop server_teamd')
+
+        info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
+        os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
+
+    info('All experiments successfully reproduced!')
 
 
 def main() -> None:
-    setup_docker()
+    experiments = ['basic']
+    setup_docker(experiments=experiments)
     generate_graphs()
 
 
