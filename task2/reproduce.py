@@ -28,12 +28,12 @@ warn = color_text(31, file=sys.stderr)
 info = color_text(32)
 
 
-def setup() -> None:
+def setup_docker() -> None:
     """Setup all needed docker images for further operations.
 
     :return: None
     """
-
+    info("Setup all docker images for the experiments...")
     # pull benchmark tool
     os.system("docker pull williamyeh/wrk")
     # build image for servers
@@ -45,6 +45,7 @@ def setup() -> None:
 def evaluate(num_con, duration, port) -> None:
     # run benchmarks and output the results into folder ./wrk_results
     for i in NUMBER_CLIENTS:
+        info(f"Run benchmark test for {i} clients...")
         os.system(
             f"docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://192.168.55.1:{port} "
             f"> wrk_results/clients_nr_{i}.txt"
@@ -56,15 +57,18 @@ def generate_graphs() -> None:
     results.mkdir()
 
     # stop possible running container with server of team D
+    info(f"Stopping possible running server of team D...")
     os.system('docker stop server_teamd')
     # start container for basic task
+    info(f"Starting server of team D...")
     os.system(f'docker run --rm -itd --net=host -v "$(pwd)/basic":/scripts server_teamd')
     evaluate(num_con=400, duration=10, port=800)
+    info(f"Stopping server after basic task...")
     os.system('docker stop server_teamd')
 
 
 def main() -> None:
-    setup()
+    setup_docker()
     generate_graphs()
 
 
