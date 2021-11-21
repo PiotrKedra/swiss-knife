@@ -63,11 +63,9 @@ def generate_graphs() -> None:
     os.system('docker stop server_teamd')
 
 
-
-
-
 def main() -> None:
     setup()
+    generate_graphs()
 
 
 if __name__ == "__main__":
