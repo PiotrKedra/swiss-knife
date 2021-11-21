@@ -61,7 +61,7 @@ def generate_graphs() -> None:
     os.system('docker stop server_teamd')
     # start container for basic task
     info(f"Starting server of team D...")
-    os.system(f'docker run --rm -itd --net=host -v "$(pwd)/basic":/scripts server_teamd')
+    os.system(f'docker run --rm -itd --net=host -v "$(pwd)/basic":/scripts --name server_teamd server_teamd')
     evaluate(num_con=400, duration=10, port=800)
     info(f"Stopping server after basic task...")
     os.system('docker stop server_teamd')
