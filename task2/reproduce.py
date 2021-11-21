@@ -50,7 +50,7 @@ def evaluate(num_con: int, duration: int, port: int) -> None:
         info(f"Run benchmark test for {i} clients...")
         os.system(
             f"docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://192.168.55.1:{port} "
-            f"> wrk_results/clients_nr_{i}.txt"
+            f"> results/clients_nr_{i}.txt"
         )
 
 
