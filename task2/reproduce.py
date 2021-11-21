@@ -59,12 +59,18 @@ def generate_graphs() -> None:
     # stop possible running container with server of team D
     info(f"Stopping possible running server of team D...")
     os.system('docker stop server_teamd')
-    # start container for basic task
+
+    # start server for basic task
     info(f"Starting server of team D...")
     os.system(f'docker run --rm -itd --net=host -v "$(pwd)/basic":/scripts --name server_teamd server_teamd')
+
     evaluate(num_con=400, duration=10, port=800)
+
+    # stop server after basic task
     info(f"Stopping server after basic task...")
     os.system('docker stop server_teamd')
+
+    info("All experiments successfully reproduced!")
 
 
 def main() -> None:
