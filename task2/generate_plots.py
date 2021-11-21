@@ -65,18 +65,18 @@ def generate_plot() -> None:
     req_per_sec_values = get_req_per_sec_per_each_clients_number()
 
     df = pd.DataFrame(data={
-        'x': CLIENTS_NUMBERS,
-        'y': req_per_sec_values
+        'clients_nr': CLIENTS_NUMBERS,
+        'rps_values': req_per_sec_values
     })
 
-    sns.regplot(x="x", y="y", data=df)
+    sns.scatterplot(x="clients_nr", y="rps_values", data=df)
 
     plt.title('Req/sec for given number of clients.')
     plt.xlabel('Number of clients')
     plt.ylabel('Requests per second')
     plt.tight_layout()
 
-    plt.savefig('/results/plot_result.png')
+    plt.savefig('/results/plot_result.svg')
 
     plt.show()
 
