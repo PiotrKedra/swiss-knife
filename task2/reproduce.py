@@ -1,4 +1,5 @@
 # !/usr/bin/env python3
+import shutil
 import sys
 
 if sys.version_info < (3, 0, 0):
@@ -54,6 +55,8 @@ def evaluate(num_con, duration, port) -> None:
 
 def generate_graphs() -> None:
     results = ROOT.joinpath("wrk_results")
+    if results.exists():
+        shutil.rmtree(results)
     results.mkdir()
 
     # stop possible running container with server of team D
@@ -69,6 +72,9 @@ def generate_graphs() -> None:
     # stop server after basic task
     info(f"Stopping server after basic task...")
     os.system('docker stop server_teamd')
+
+    os.system(f'docker run --rm -it -v "$(pwd)/wrk_results":/wrk_results plot_results_teamd')
+
 
     info("All experiments successfully reproduced!")
 

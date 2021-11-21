@@ -1,11 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-CLIENTS_NUMBERS = [1, 2, 4, 8, 16, 32]
+CLIENTS_NUMBERS = [1, 2, 4]
 
 
 def get_req_per_sec_from_wrk_file(file_name):
-    with open('wrk_result/' + file_name) as f:
+    with open('wrk_results/' + file_name) as f:
         lines = f.readlines()
         req_per_sec = ''
         should_start = False
