@@ -92,8 +92,8 @@ def generate_graphs(experiments) -> None:
 
 def main() -> None:
     experiments = ['basic']
-    setup_docker(experiments=experiments)
-    generate_graphs()
+    setup_docker()
+    generate_graphs(experiments=experiments)
 
 
 if __name__ == "__main__":
