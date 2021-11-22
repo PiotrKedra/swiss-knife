@@ -27,8 +27,12 @@ $ cd task2
 $ python reproduce.py 
 ```
 
-The graphs will be written to ./results/name_of_experiment. 
+The graphs will be written to `./results/<name_of_experiment>`. Where the name of the experiment is:
+
+- basic
+- io_uring
 
 Reproduced figures:
 
-- Figure 1. 
+- <b>Figure 1</b> - Showing requests per seconds for the basic HTTP server based on tradional sockets
+- Figure 2
