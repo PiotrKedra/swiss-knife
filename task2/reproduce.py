@@ -42,7 +42,6 @@ def find_open_port(ip, port, interface):
     while True:
         try:
             sock.bind((ip, port))
-            sock.bind(('192.168.55.1', 800))
             print('Test1')
         except socket.error as e:
             if e.errno == errno.EADDRINUSE:
