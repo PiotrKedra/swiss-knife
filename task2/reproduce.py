@@ -1,9 +1,11 @@
 # !/usr/bin/env python3
+import json
 import shutil
 import sys
+from socket import socket
 
 if sys.version_info < (3, 0, 0):
-    print("This script assumes at least python3")
+    print('This script assumes at least python3')
     sys.exit(1)
 
 import os
@@ -14,6 +16,9 @@ ROOT = Path(__file__).parent.resolve()
 HAS_TTY = sys.stderr.isatty()
 
 NUMBER_CLIENTS = [1, 2, 4, 8, 16, 32]
+INTERFACE = 'swissknife0'
+IP_ADDRESS = '192.168.55.1'
+PORT = 800
 
 
 def color_text(code: int, file: IO[Any] = sys.stdout) -> Callable[[str], None]:
@@ -30,27 +35,46 @@ warn = color_text(31, file=sys.stderr)
 info = color_text(32)
 
 
+def find_open_port(ip, port, interface):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    while True:
+        result = sock.connect_ex((ip, port))
+        if result == 0:
+            break
+        port = port + 1
+
+    network_settings = {
+        'interface': interface,
+        'ip': ip,
+        'port': port
+    }
+
+    f = open('network_settings.txt', 'w')
+    print(json.dumps(network_settings), file=f)
+
+
 def setup_docker() -> None:
     """Setup all needed docker images for further operations.
 
     :return: None
     """
-    info("Setup all docker images for the experiments...")
+    info('Setup all docker images for the experiments...')
     # pull benchmark tool
-    os.system("docker pull williamyeh/wrk")
+    os.system('docker pull williamyeh/wrk')
     # build image for servers
-    os.system("docker build -t server_teamd -f server.Dockerfile .")
+    os.system('docker build -t server_teamd -f server.Dockerfile .')
     # build image for plots
-    os.system("docker build -t plot_results_teamd -f plot.Dockerfile .")
+    os.system('docker build -t plot_results_teamd -f plot.Dockerfile .')
 
 
 def evaluate(num_con: int, duration: int, port: int, target: str) -> None:
     # run benchmarks and output the results into folder ./wrk_results
     for i in NUMBER_CLIENTS:
-        info(f"Run benchmark test for {i} clients...")
+        info(f'Run benchmark test for {i} clients...')
         os.system(
-            f"docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://192.168.55.1:{port} "
-            f"| tee results/{target}/clients_nr_{i}.txt"
+            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://192.168.55.1:{port} '
+            f'| tee results/{target}/clients_nr_{i}.txt'
         )
 
 
@@ -92,6 +116,7 @@ def generate_graphs(experiments) -> None:
 
 def main() -> None:
     experiments = ['basic']
+    find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=PORT)
     setup_docker()
     generate_graphs(experiments=experiments)
 

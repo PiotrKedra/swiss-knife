@@ -1,4 +1,11 @@
 import socket
+import json
+
+
+def get_network_settings():
+    with open('network_settings.txt') as json_file:
+        data = json.load(json_file)
+        return data
 
 
 def service_client(new_socket):
@@ -13,14 +20,16 @@ def service_client(new_socket):
     new_socket.close()
 
 
-def main():
+def main() -> None:
+    # network settings for server
+    network_settings = get_network_settings()
     # create sockets
     http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # prevent port from being occupied and unable to start program
-    http_server.setsockopt(socket.SOL_SOCKET, 25, str("swissknife0" + '\0').encode('utf-8'))
+    http_server.setsockopt(socket.SOL_SOCKET, 25, str(network_settings['interface'] + '\0').encode('utf-8'))
 
     # binding ports
-    http_server.bind(("192.168.55.1", 800))
+    http_server.bind((network_settings['ip'], network_settings['port']))
     # change to listening socket
     http_server.listen(128)
     while True:
