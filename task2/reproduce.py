@@ -2,7 +2,7 @@
 import json
 import shutil
 import sys
-from socket import socket
+import socket
 
 if sys.version_info < (3, 0, 0):
     print('This script assumes at least python3')
