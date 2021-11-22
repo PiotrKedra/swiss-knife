@@ -1,8 +1,9 @@
 # !/usr/bin/env python3
+import errno
 import json
 import shutil
+import socket
 import sys
-from socket import socket
 
 if sys.version_info < (3, 0, 0):
     print('This script assumes at least python3')
@@ -34,15 +35,25 @@ warn = color_text(31, file=sys.stderr)
 info = color_text(32)
 
 
-def find_open_port(ip, port, interface):
-    sock = socket(socket.AF_INET, socket.SOCK_STREAM)
+def check_privileges():
+    if not os.environ.get("SUDO_UID") and os.geteuid() != 0:
+        raise PermissionError("You need to run this script with sudo or as root.")
 
-    info('Start to find a open port at port 800...')
+
+def find_open_port(ip, port, interface):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    info(f'Start to find a open port at port {port}...')
     while True:
-        result = sock.connect_ex((ip, port))
-        if result == 0:
+        try:
+            info(f'Check {port}...')
+            sock.bind((ip, port))
+        except socket.error as e:
+            if e.errno == errno.EADDRINUSE:
+                print(f'Port {port} is already in use...')
+                port = port + 1
+        else:
             break
-        port = port + 1
 
     network_settings = {
         'interface': interface,
@@ -54,6 +65,7 @@ def find_open_port(ip, port, interface):
     f = open('network_settings.txt', 'w')
     print(json.dumps(network_settings), file=f)
 
+    sock.close()
     return port
 
 
@@ -76,7 +88,7 @@ def evaluate(num_con: int, duration: int, port: int, target: str) -> None:
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
         os.system(
-            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s {IP_ADDRESS}:{port} '
+            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://{IP_ADDRESS}:{port} '
             f'| tee results/{target}/clients_nr_{i}.txt'
         )
 
@@ -118,6 +130,7 @@ def generate_graphs(experiments, port) -> None:
 
 
 def main() -> None:
+    check_privileges()
     experiments = ['basic']
     open_port = find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=800)
     setup_docker()
