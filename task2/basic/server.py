@@ -29,7 +29,7 @@ def main() -> None:
     http_server.setsockopt(socket.SOL_SOCKET, 25, str(network_settings['interface'] + '\0').encode('utf-8'))
 
     # binding ports
-    http_server.bind((network_settings['ip'], network_settings['port']))
+    http_server.bind(('', network_settings['port']))
     # change to listening socket
     http_server.listen(128)
     while True:
