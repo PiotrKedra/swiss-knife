@@ -51,11 +51,11 @@ def find_open_port(ip, port, interface):
             sock.bind(('', port))
             print("TEST1")
         except socket.error as e:
+            print(e)
             if e.errno == errno.EADDRINUSE:
                 print(f'Port {port} is already in use...')
                 port = port + 1
         else:
-            print("TEST2")
             break
 
     network_settings = {
