@@ -1,7 +1,6 @@
 import select, socket, sys, queue
 
 
-
 def main():
     http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     http_server.setsockopt(socket.SOL_SOCKET, 25, str("wlo1" + '\0').encode('utf-8'))
@@ -48,6 +47,7 @@ def main():
                 outputs.remove(s)
             s.close()
             del message_queues[s]
+
 
 if __name__ == '__main__':
     main()
