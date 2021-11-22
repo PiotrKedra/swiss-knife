@@ -1,8 +1,9 @@
 # !/usr/bin/env python3
+import errno
 import json
 import shutil
-import sys
 import socket
+import sys
 
 if sys.version_info < (3, 0, 0):
     print('This script assumes at least python3')
@@ -37,12 +38,16 @@ info = color_text(32)
 def find_open_port(ip, port, interface):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    info('Start to find a open port at port 800...')
+    info(f'Start to find a open port at port {port}...')
     while True:
-        result = sock.connect_ex((ip, port))
-        if result == 0:
+        try:
+            sock.bind((ip, port))
+        except socket.error as e:
+            if e.errno == errno.EADDRINUSE:
+                print(f'Port {port} is already in use...')
+                port = port + 1
+        else:
             break
-        port = port + 1
 
     network_settings = {
         'interface': interface,
@@ -54,6 +59,7 @@ def find_open_port(ip, port, interface):
     f = open('network_settings.txt', 'w')
     print(json.dumps(network_settings), file=f)
 
+    sock.close()
     return port
 
 
