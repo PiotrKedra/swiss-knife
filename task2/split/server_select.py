@@ -5,7 +5,7 @@ import select, socket, sys, queue
 def main():
     http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     http_server.setsockopt(socket.SOL_SOCKET, 25, str("wlo1" + '\0').encode('utf-8'))
-    http_server.bind(('', 810))
+    http_server.bind(('', 834))
     http_server.listen(128)
     http_server.listen(5)
     inputs = [http_server]
