@@ -42,6 +42,7 @@ def find_open_port(ip, port, interface):
     while True:
         try:
             sock.bind((ip, port))
+            sock.bind(('192.168.55.1', 800))
             print('Test1')
         except socket.error as e:
             if e.errno == errno.EADDRINUSE:
@@ -84,7 +85,7 @@ def evaluate(num_con: int, duration: int, port: int, target: str) -> None:
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
         os.system(
-            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s {IP_ADDRESS}:{port} '
+            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://{IP_ADDRESS}:{port} '
             f'| tee results/{target}/clients_nr_{i}.txt'
         )
 
