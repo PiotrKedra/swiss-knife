@@ -35,7 +35,7 @@ info = color_text(32)
 
 
 def find_open_port(ip, port, interface):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock = socket(socket.AF_INET, socket.SOCK_STREAM)
 
     info('Start to find a open port at port 800...')
     while True:
