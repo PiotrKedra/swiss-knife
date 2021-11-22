@@ -42,12 +42,13 @@ def check_privileges():
 
 def find_open_port(ip, port, interface):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, 25, str(interface + '\0').encode('utf-8'))
 
     info(f'Start to find a open port at port {port}...')
     while True:
         try:
             info(f'Check {port}...')
-            sock.bind((ip, port))
+            sock.bind(('', port))
         except socket.error as e:
             if e.errno == errno.EADDRINUSE:
                 print(f'Port {port} is already in use...')
@@ -130,7 +131,7 @@ def generate_graphs(experiments, port) -> None:
 
 
 def main() -> None:
-    check_privileges()
+    # check_privileges()
     experiments = ['basic']
     open_port = find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=800)
     setup_docker()
