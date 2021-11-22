@@ -35,20 +35,24 @@ warn = color_text(31, file=sys.stderr)
 info = color_text(32)
 
 
+def check_privileges():
+    if not os.environ.get("SUDO_UID") and os.geteuid() != 0:
+        raise PermissionError("You need to run this script with sudo or as root.")
+
+
 def find_open_port(ip, port, interface):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     info(f'Start to find a open port at port {port}...')
     while True:
         try:
+            info(f'Check {port}...')
             sock.bind((ip, port))
-            print('Test1')
         except socket.error as e:
             if e.errno == errno.EADDRINUSE:
                 print(f'Port {port} is already in use...')
                 port = port + 1
         else:
-            print('Test2')
             break
 
     network_settings = {
@@ -126,6 +130,7 @@ def generate_graphs(experiments, port) -> None:
 
 
 def main() -> None:
+    check_privileges()
     experiments = ['basic']
     open_port = find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=800)
     setup_docker()
