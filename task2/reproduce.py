@@ -47,10 +47,9 @@ def find_open_port(ip, port, interface):
     info(f'Start to find a open port at port {port}...')
     while True:
         try:
-            print("TEST1")
             info(f'Check {port}...')
-            print("TEST1")
             sock.bind(('', port))
+            print("TEST1")
         except socket.error as e:
             if e.errno == errno.EADDRINUSE:
                 print(f'Port {port} is already in use...')
