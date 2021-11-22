@@ -18,7 +18,6 @@ HAS_TTY = sys.stderr.isatty()
 NUMBER_CLIENTS = [1, 2, 4, 8, 16, 32]
 INTERFACE = 'swissknife0'
 IP_ADDRESS = '192.168.55.1'
-PORT = 800
 
 
 def color_text(code: int, file: IO[Any] = sys.stdout) -> Callable[[str], None]:
@@ -38,6 +37,7 @@ info = color_text(32)
 def find_open_port(ip, port, interface):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    info('Start to find a open port at port 800...')
     while True:
         result = sock.connect_ex((ip, port))
         if result == 0:
@@ -49,9 +49,12 @@ def find_open_port(ip, port, interface):
         'ip': ip,
         'port': port
     }
+    info(f'Port {port} is open and will be used...')
 
     f = open('network_settings.txt', 'w')
     print(json.dumps(network_settings), file=f)
+
+    return port
 
 
 def setup_docker() -> None:
@@ -73,7 +76,7 @@ def evaluate(num_con: int, duration: int, port: int, target: str) -> None:
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
         os.system(
-            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://192.168.55.1:{port} '
+            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s {IP_ADDRESS}:{port} '
             f'| tee results/{target}/clients_nr_{i}.txt'
         )
 
@@ -87,7 +90,7 @@ def create_folder(parent: str, child: str) -> str:
     return new_folder
 
 
-def generate_graphs(experiments) -> None:
+def generate_graphs(experiments, port) -> None:
     create_folder(ROOT, 'results')
     results = create_folder(ROOT, 'results')
 
@@ -102,7 +105,7 @@ def generate_graphs(experiments) -> None:
         info(f'Starting server for experiment {exp}...')
         os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd server_teamd')
 
-        evaluate(num_con=400, duration=10, port=800, target=exp)
+        evaluate(num_con=400, duration=10, port=port, target=exp)
 
         # stop server after basic task
         info(f'Stopping server after experiment {exp}...')
@@ -116,9 +119,9 @@ def generate_graphs(experiments) -> None:
 
 def main() -> None:
     experiments = ['basic']
-    find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=PORT)
+    open_port = find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=800)
     setup_docker()
-    generate_graphs(experiments=experiments)
+    generate_graphs(experiments=experiments, port=open_port)
 
 
 if __name__ == "__main__":
