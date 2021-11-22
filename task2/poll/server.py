@@ -1,4 +1,5 @@
-import select, socket, sys, queue
+import select
+import socket
 
 
 def main():
