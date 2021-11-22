@@ -71,9 +71,9 @@ def generate_plot() -> None:
 
     sns.scatterplot(x="clients_nr", y="rps_values", data=df)
 
-    plt.title('Req/sec for given number of clients.')
-    plt.xlabel('Number of clients')
-    plt.ylabel('Requests per second')
+    plt.title('RPS for Given Number of Clients.')
+    plt.xlabel('Number of Clients')
+    plt.ylabel('Requests per Second (RPS)')
     plt.tight_layout()
 
     plt.savefig('/results/plot_result.svg')
