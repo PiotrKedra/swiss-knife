@@ -20,7 +20,7 @@ def main():
         data = connection.recv(1024)
         content_length = "Content-Length:%d\r\n" % len(data)
         if data:
-            data = b"HTTP/1.1 200 OK\r\n" + content_length.encode() + "\r\n".encode() + data
+            data = b"HTTP/1.1 200 OK\r\n" + content_length.encode() + b"\r\n" + data
             print(data)
             connection.sendall(data)
         connection.close()
