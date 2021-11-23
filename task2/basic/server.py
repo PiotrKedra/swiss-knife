@@ -19,10 +19,11 @@ def main():
         connection, address = http_server.accept()
         data = connection.recv(1024)
         if data:
-            data = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "Content-Length:" + str(
-                len(data)) + "\r\n" + "\r\n" + data.decode()
+            response = b'HTTP/1.0 200 OK\r\nDate: Mon, 1 Jan 1996 01:01:01 GMT\r\n'
+            response += b'Content-Type: text/plain\r\nContent-Length: 13\r\n\r\n'
+            response += b'Hello, world!'
             print(data)
-            connection.sendall(data.encode())
+            connection.sendall(response)
         connection.close()
 
 
