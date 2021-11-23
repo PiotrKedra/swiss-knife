@@ -18,10 +18,10 @@ def main():
     while True:
         connection, address = http_server.accept()
         data = connection.recv(1024)
-        data = b"HTTP/1.1 200 OK\r\n" + data
+        data = b"HTTP/1.1 200 OK\r\n\r\n" + data
         print(data)
-        connection.sendall("HTTP/1.1 200 OK\r\n".encode())
-    # connection.close()
+        connection.sendall(data)
+    connection.close()
 
 
 if __name__ == '__main__':
