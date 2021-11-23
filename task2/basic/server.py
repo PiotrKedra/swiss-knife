@@ -18,8 +18,9 @@ def main():
     while True:
         connection, address = http_server.accept()
         data = connection.recv(1024)
+        print(data)
         connection.sendall(data)
-    #connection.close()
+    # connection.close()
 
 
 if __name__ == '__main__':
