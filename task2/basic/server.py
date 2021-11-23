@@ -21,7 +21,7 @@ def main():
         if data:
             data = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n" + "\r\n" + "<h1>hello SWK</h1>"
             print(data)
-            connection.sendall(data.encode())
+            connection.send(data.encode())
         connection.close()
 
 
