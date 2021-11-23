@@ -18,8 +18,6 @@ def main():
     while True:
         connection, address = http_server.accept()
         data = connection.recv(1024)
-        if not data:
-            break
         connection.sendall(data)
     connection.close()
 
