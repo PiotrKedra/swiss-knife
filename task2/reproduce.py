@@ -18,7 +18,7 @@ HAS_TTY = sys.stderr.isatty()
 
 NUMBER_CLIENTS = [1, 2, 4, 8, 16, 32]
 INTERFACE = 'swissknife0'
-IP_ADDRESS = '192.168.55.1'
+IP_ADDRESS = '169.254.68.39'
 
 
 def color_text(code: int, file: IO[Any] = sys.stdout) -> Callable[[str], None]:
