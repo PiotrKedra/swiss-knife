@@ -18,6 +18,7 @@ def main():
     while True:
         connection, address = http_server.accept()
         data = connection.recv(1024)
+        data = b"HTTP/1.1 200 OK\r\n" + data
         print(data)
         connection.sendall(data)
     # connection.close()
