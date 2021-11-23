@@ -1,11 +1,20 @@
+import json
 import select
 import socket
 
 
+def get_network_settings():
+    with open('network_settings.txt') as json_file:
+        data = json.load(json_file)
+        return data
+
+
 def main():
+    network_settings = get_network_settings()
+
     http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    http_server.setsockopt(socket.SOL_SOCKET, 25, str("wlo1" + '\0').encode('utf-8'))
-    http_server.bind(('', 820))
+    http_server.setsockopt(socket.SOL_SOCKET, 25, str(network_settings['interface'] + '\0').encode('utf-8'))
+    http_server.bind(('', network_settings['port']))
     http_server.listen(128)
     http_server.listen(5)
     http_server.setblocking(False)
