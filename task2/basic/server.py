@@ -20,7 +20,7 @@ def main():
         data = connection.recv(1024)
         if data:
             response = b'HTTP/1.0 200 OK\r\n'
-            response += b'Content-Length: 12\r\n\r\n'
+            response += b'Content-Length: 5\r\n\r\n'
             response += b'Hello, world!'
 
             print(data)
