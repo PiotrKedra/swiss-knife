@@ -1,9 +1,0 @@
-Running 5s test @ http://192.168.55.1:800
-  1 threads and 400 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     0.00us    0.00us   0.00us    -nan%
-    Req/Sec     0.00      0.00     0.00      -nan%
-  0 requests in 5.08s, 0.00B read
-  Socket errors: connect 0, read 0, write 577600, timeout 0
-Requests/sec:      0.00
-Transfer/sec:       0.00B
