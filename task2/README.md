@@ -24,7 +24,7 @@ Run evaluations with:
 
 ```console
 $ cd task2
-$ python reproduce.py 
+$ sudo python reproduce.py 
 ```
 
 The graphs will be written to `./results/<name_of_experiment>`. Where the name of the experiment is:
