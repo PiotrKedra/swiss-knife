@@ -41,14 +41,13 @@ def main():
                 connections[fd] = connection
                 requests[fd] = ''
                 responses[fd] = ''
-
             elif event & select.EPOLLIN:
                 data = connections[fileno].recv(1024)
+
                 if data and data.decode() != "QUIT":
                     poll.modify(fileno, select.EPOLLOUT)
                     responses[fileno] = data
                     requests[fileno] = ''
-
                 else:
                     print('[{:02d}] exit or hung up'.format(fileno))
                     poll.unregister(fileno)
