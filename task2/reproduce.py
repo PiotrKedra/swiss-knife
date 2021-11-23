@@ -135,7 +135,7 @@ def generate_graphs(experiments, port) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['basic', 'epoll']
+    experiments = ['http_hack']
     open_port = find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=800)
     setup_docker()
     generate_graphs(experiments=experiments, port=open_port)
