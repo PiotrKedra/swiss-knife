@@ -20,7 +20,7 @@ def main():
         data = connection.recv(1024)
         data = b"HTTP/1.1 200 OK\r\n" + data
         print(data)
-        connection.sendall(data)
+        connection.sendall("HTTP/1.1 200 OK\r\n".encode())
     # connection.close()
 
 
