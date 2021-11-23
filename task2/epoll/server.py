@@ -46,7 +46,7 @@ def main():
 
                 if data and data.decode() != "QUIT":
                     poll.modify(fileno, select.EPOLLOUT)
-                    responses[fileno] = data
+                    responses[fileno] = b"HTTP/1.1 200 OK\r\n\r\n" + data
                     requests[fileno] = ''
                 else:
                     print('[{:02d}] exit or hung up'.format(fileno))
