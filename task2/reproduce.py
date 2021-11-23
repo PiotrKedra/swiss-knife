@@ -4,6 +4,7 @@ import json
 import shutil
 import socket
 import sys
+from time import sleep
 
 if sys.version_info < (3, 0, 0):
     print('This script assumes at least python3')
@@ -129,6 +130,7 @@ def generate_graphs(experiments, port) -> None:
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
         os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
+        sleep(10)
 
     info('All experiments successfully reproduced!')
 
