@@ -4,7 +4,7 @@ import socket
 def main():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.setsockopt(socket.SOL_SOCKET, 25, str("wlo1" + '\0').encode('utf-8'))
-    client.connect(('', 834))
+    client.connect(('', 835))
 
     response = "HTTP/1.1 200 OK\r\n"
     response += "\r\n"

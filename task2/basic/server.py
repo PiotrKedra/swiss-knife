@@ -18,11 +18,10 @@ def main():
     while True:
         connection, address = http_server.accept()
         data = connection.recv(1024)
-        content_length = "Content-Length:%d\r\n" % len(data)
         if data:
-            data = b"HTTP/1.1 200 OK\r\n" + content_length.encode() + b"\r\n" + data
+            data = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "Content-Length:" + str(len(data)) + "\n" + "\n" + data.decode()
             print(data)
-            connection.sendall(data)
+            connection.sendall(data.encode())
         connection.close()
 
 
