@@ -1,7 +1,6 @@
-#!/usr/bin/python
+import codecs
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import codecs
 
 home = './responses/home.html'
 send = './responses/send.json'
