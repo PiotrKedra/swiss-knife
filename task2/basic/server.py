@@ -21,7 +21,7 @@ def main():
         data = b"HTTP/1.1 200 OK\r\n\r\n" + data
         print(data)
         connection.sendall(data)
-        connection.close()
+    connection.close()
 
 
 if __name__ == '__main__':
