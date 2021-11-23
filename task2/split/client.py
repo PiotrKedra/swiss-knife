@@ -11,11 +11,10 @@ def main():
     response += "<h1>Hello Swiss Knife Lab</h1>"
 
     count = 0
-    while count < 20:
-        client.sendall(response.encode())
-        data = client.recv(1024)
-        print('Received', repr(data))
-        count+= 1
+    client.sendall(response.encode())
+    data = client.recv(1024)
+    print('Received', repr(data))
+    count+= 1
 
     client.close()
 
