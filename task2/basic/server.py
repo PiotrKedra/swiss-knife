@@ -22,7 +22,6 @@ def main():
             data = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "Content-Length:" + str(
                 len(data)) + "\n" + "\n" + data.decode()
             print(data)
-            data = "Hey"
             connection.sendall(data.encode())
         connection.close()
 
