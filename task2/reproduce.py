@@ -105,12 +105,15 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
         )
-        if sys_profile and i == 32:
+        if sys_profile and i == 1:
             os.system(f'docker stop server_teamd{hashed_container}')
+            sleep(30)
+
             hashed_container = uuid.uuid4().hex
             os.system(
                 f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
             )
+            sleep(30)
 
             os.system(
                 f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
