@@ -87,10 +87,11 @@ def setup_docker() -> None:
 
 
 def evaluate(num_con: int, duration: int, port: int, exp: str) -> None:
-    # run benchmarks and output the results into folder ./wrk_results
+    # run benchmarks and output the results into folder ./results/<exp>
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
         os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/scripts --name server_teamD server_teamd')
+        sleep(30)
         os.system(
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
