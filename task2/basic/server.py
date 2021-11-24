@@ -36,7 +36,7 @@ def main():
             content_length = str(len(data)).encode()
             response = b'HTTP/1.0 200 OK\r\n'
             response += b'Content-Length: ' + content_length + b'\r\n\r\n'
-            response += b'Hello, world!'
+            response += data
             print(data)
             connection.sendall(response)
         connection.close()
