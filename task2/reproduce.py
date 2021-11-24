@@ -123,7 +123,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
         # start server for basic task
         info(f'Starting server for experiment {exp}...')
-        os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/ --name server_teamD server_teamd')
+        os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/scripts --name server_teamD server_teamd')
 
         sleep(15)
 
