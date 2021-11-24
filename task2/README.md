@@ -27,7 +27,7 @@ $ cd task2
 $ sudo python reproduce.py 
 ```
 
-The graphs will be written to `./results/<name_of_experiment>`. Where the name of the experiment is:
+The graphs will be written to `./results/<name_of_experiment>`. Where the name of the experiment are:
 
 - basic
 - io_uring

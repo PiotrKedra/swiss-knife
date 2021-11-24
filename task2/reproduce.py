@@ -87,10 +87,12 @@ def setup_docker() -> None:
     os.system('docker build -t plot_results_teamd -f plot.Dockerfile .')
 
 
-def evaluate(num_con: int, duration: int, port: int, exp: str) -> None:
+def evaluate(num_con: int, duration: int, exp: str) -> None:
     # run benchmarks and output the results into folder ./results/<exp>
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
+        port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=PORT, exp=exp)
+        info(f'Starting server for experiment...')
         hashed_container = uuid.uuid4().hex
         os.system(
             f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
@@ -114,6 +116,12 @@ def create_folder(parent: str, child: str) -> str:
     return new_folder
 
 
+def start_nix_shell():
+    os.system(
+        "nix-shell shell.nix"
+    )
+
+
 def generate_graphs(experiments: List[str], port: int) -> None:
     create_folder(ROOT, 'results')
     results = create_folder(ROOT, 'results')
@@ -121,25 +129,17 @@ def generate_graphs(experiments: List[str], port: int) -> None:
     for exp in experiments:
         create_folder(results, exp)
 
-        port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=port, exp=exp)
-
-        # stop possible running container with server of team D
-        info(f'Stopping possible running server of team D...')
-        os.system('docker stop server_teamD')
-
-        # start server for basic task
-        info(f'Starting server for experiment {exp}...')
-
-        evaluate(num_con=100, duration=10, port=port, exp=exp)
+        evaluate(num_con=100, duration=10, exp=exp)
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
-        os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results   _results_teamd')
+        os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
 
     info('All experiments successfully reproduced!')
 
 
 def main() -> None:
     check_privileges()
+    start_nix_shell()
     experiments = ['basic', 'epoll']
     setup_docker()
     generate_graphs(experiments=experiments, port=PORT)
