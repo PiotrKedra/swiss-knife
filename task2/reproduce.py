@@ -47,7 +47,6 @@ def check_privileges() -> None:
 
 def find_open_port(ip: str, port: int, interface: str, exp: str) -> int:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.setsockopt(socket.SOL_SOCKET, 25, str(interface + '\0').encode('utf-8'))
 
     info(f'Find open port...')
     while True:
