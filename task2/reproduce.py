@@ -90,8 +90,7 @@ def evaluate(num_con: int, duration: int, port: int, target: str) -> None:
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
         os.system(
-            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s '
-            f'"http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
+            f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{target}/clients_nr_{i}.txt'
         )
 
