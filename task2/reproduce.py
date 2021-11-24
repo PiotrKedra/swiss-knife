@@ -119,7 +119,7 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
                 f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
             )
             os.system(
-                f'perf script | perl ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}_{exp}.perf-folded"'
+                f'perf script | perl ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}_{exp}.perf-folded'
             )
             os.system(
                 f'perl ./FlameGraph/flamegraph.pl clients_nr_{i}_{exp}.perf-folded > ./plots/clients_nr_{i}_{exp}.svg'
