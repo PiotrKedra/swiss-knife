@@ -18,7 +18,7 @@ def main():
     network_settings = get_network_settings()
 
     address_info = socket.getaddrinfo(
-        f"fe80::e63d:1aff:fe72:f1%{network_settings['interface']}",
+        f"{network_settings['ip']}%{network_settings['interface']}",
         network_settings['port'],
         socket.AF_INET6,
         socket.SOCK_STREAM
