@@ -127,7 +127,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
         sleep(15)
 
-        evaluate(num_con=400, duration=10, port=port, target=exp)
+        evaluate(num_con=100, duration=10, port=port, target=exp)
 
         # stop server after basic task
         info(f'Stopping server after experiment {exp}...')
