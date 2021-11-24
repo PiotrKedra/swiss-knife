@@ -101,7 +101,7 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
         os.system(
             f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
         )
-        sleep(20)
+        sleep(30)
         os.system(
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
@@ -118,7 +118,7 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
             )
         info(f'Clean up for next clients...')
         os.system(f'docker stop server_teamd{hashed_container}')
-        sleep(20)
+        sleep(30)
 
 
 def create_folder(parent: str, child: str) -> str:
