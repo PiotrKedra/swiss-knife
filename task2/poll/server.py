@@ -1,10 +1,15 @@
 import json
-import select
+import os
 import socket
+
+import select
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 
 def get_network_settings():
-    with open('network_settings.txt') as json_file:
+    with open(os.path.join(__location__, 'network_settings.txt')) as json_file:
         data = json.load(json_file)
         return data
 
@@ -12,9 +17,16 @@ def get_network_settings():
 def main():
     network_settings = get_network_settings()
 
-    http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    http_server.setsockopt(socket.SOL_SOCKET, 25, str(network_settings['interface'] + '\0').encode('utf-8'))
+    address_info = socket.getaddrinfo(
+        f"fe80::e63d:1aff:fe72:f1%{network_settings['interface']}",
+        network_settings['port'],
+        socket.AF_INET6,
+        socket.SOCK_STREAM
+    )
+    (family, sock_type, proto, canon_name, sock_address) = address_info[0]
+    http_server = socket.socket(family, sock_type, proto)
     http_server.bind(('', network_settings['port']))
+
     http_server.listen(128)
     http_server.listen(5)
     http_server.setblocking(False)

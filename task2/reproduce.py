@@ -117,9 +117,7 @@ def create_folder(parent: str, child: str) -> str:
 
 
 def start_nix_shell():
-    os.system(
-        "nix-shell shell.nix"
-    )
+    pass
 
 
 def generate_graphs(experiments: List[str], port: int) -> None:
@@ -139,8 +137,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
 def main() -> None:
     check_privileges()
-    start_nix_shell()
-    experiments = ['basic', 'epoll']
+    experiments = ['poll', 'select', 'epoll', 'basic']
     setup_docker()
     generate_graphs(experiments=experiments, port=PORT)
 
