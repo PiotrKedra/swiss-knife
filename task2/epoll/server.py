@@ -13,9 +13,16 @@ def get_network_settings():
 def main():
     network_settings = get_network_settings()
 
-    http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    http_server.setsockopt(socket.SOL_SOCKET, 25, str(network_settings['interface'] + '\0').encode('utf-8'))
+    address_info = socket.getaddrinfo(
+        f"fe80::e63d:1aff:fe72:f1%{network_settings['interface']}",
+        network_settings['port'],
+        socket.AF_INET6,
+        socket.SOCK_STREAM
+    )
+    (family, sock_type, proto, canon_name, sock_address) = address_info[0]
+    http_server = socket.socket(family, sock_type, proto)
     http_server.bind(('', network_settings['port']))
+
     http_server.listen(128)
     http_server.listen(5)
     http_server.setblocking(False)
@@ -46,7 +53,6 @@ def main():
 
                 if data and data.decode() != "QUIT":
                     poll.modify(fileno, select.EPOLLOUT)
-                    # responses[fileno] = b"HTTP/1.1 200 OK\r\n\r\n" + data
                     responses[fileno] = b'HTTP/1.0 200 OK\r\n'
                     responses[fileno] += b'Content-Length: 13\r\n\r\n'
                     responses[fileno] += b'Hello, world!'
