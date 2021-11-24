@@ -105,15 +105,21 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
         )
-        if sys_profile:
+        if sys_profile and i == 32:
+            os.system(f'docker stop server_teamd{hashed_container}')
+            hashed_container = uuid.uuid4().hex
+            os.system(
+                f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
+            )
+
             os.system(
                 f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
             )
             os.system(
-                f'perf script | ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}.perf-folded"'
+                f'perf script | perl ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}.perf-folded"'
             )
             os.system(
-                f'./FlameGraph/flamegraph.pl clients_nr_{i}.perf-folded > ./results/{exp}/clients_nr_{i}.svg'
+                f'perl ./FlameGraph/flamegraph.pl clients_nr_{i}.perf-folded > ./plots/clients_nr_{i}.svg'
             )
         info(f'Clean up for next clients...')
         os.system(f'docker stop server_teamd{hashed_container}')
@@ -134,6 +140,7 @@ def start_nix_shell():
 
 
 def generate_graphs(experiments: List[str]) -> None:
+    create_folder(ROOT, 'plots')
     create_folder(ROOT, 'results')
     results = create_folder(ROOT, 'results')
 
@@ -149,7 +156,6 @@ def generate_graphs(experiments: List[str]) -> None:
 
 
 def collect_generated_plots(experiments: List[str]) -> None:
-    create_folder(ROOT, 'plots')
     for exp in experiments:
         os.system(f'mv ./results/{exp}/plot_result.svg ./plots/plot_result_{exp}.svg')
 
