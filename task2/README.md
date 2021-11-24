@@ -20,19 +20,23 @@ The first step is to get the source code for the task 2 from our repository:
 $ git clone https://github.com/PiotrKedra/swiss-knife.git
 ```
 
-Run evaluations with:
+Use ```sudo``` to run the evaluations! The server starts freshly for each benchmark test. This takes a while, so please
+be patient until the whole process will finish. You might grab a coffee...since the test needs about 28 minutes to test
+all servers. Run the evaluations with:
 
 ```console
 $ cd task2
 $ sudo python reproduce.py 
 ```
 
-The graphs will be written to `./results/<name_of_experiment>`. Where the name of the experiment are:
+The graphs will be written to `./results/<name_of_experiment>`. Where the name of the experiments are:
 
 - basic
-- io_uring
+- poll
+- epoll
+- select
 
 Reproduced figures:
 
-- <b>Figure 1</b> - Showing requests per seconds for the basic HTTP server based on tradional sockets
-- Figure 2
+- <b>Figure 1</b> - Showing requests per seconds for the basic HTTP server
+- <b>Figure 2</b> - Showing requests per seconds for the HTTP serverls

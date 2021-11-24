@@ -156,7 +156,7 @@ def collect_generated_plots(experiments: List[str]) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['basic']
+    experiments = ['basic', 'poll', 'epoll', 'select']
     setup()
     generate_graphs(experiments=experiments)
     collect_generated_plots(experiments=experiments)
