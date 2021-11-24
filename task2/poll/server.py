@@ -57,9 +57,10 @@ def main():
                 data = connections[fileno].recv(1024)
                 if data and data.decode() != "QUIT":
                     poll.modify(fileno, select.POLLOUT)
-                    responses[fileno] = b'HTTP/1.0 200 OK\r\n'
-                    responses[fileno] += b'Content-Length: 13\r\n\r\n'
-                    responses[fileno] += b'Hello, world!'
+                    content_length = str(len(data)).encode()
+                    response = b'HTTP/1.0 200 OK\r\n'
+                    response += b'Content-Length: ' + content_length + b'\r\n\r\n'
+                    response += data
                     requests[fileno] = ''
 
                 else:

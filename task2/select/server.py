@@ -47,9 +47,10 @@ def main():
                 try:
                     data = s.recv(1024)
                     if data:
-                        data = b'HTTP/1.0 200 OK\r\n'
-                        data += b'Content-Length: 13\r\n\r\n'
-                        data += b'Hello, world!'
+                        content_length = str(len(data)).encode()
+                        response = b'HTTP/1.0 200 OK\r\n'
+                        response += b'Content-Length: ' + content_length + b'\r\n\r\n'
+                        response += data
                         message_queues[s].put(data)
                         if s not in outputs:
                             outputs.append(s)
