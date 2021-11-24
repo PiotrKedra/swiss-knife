@@ -91,11 +91,12 @@ def setup() -> None:
 
 
 def evaluate(num_con: int, duration: int, exp: str) -> None:
+    info(f'Start {exp} experiment...')
     # run benchmarks and output the results into folder ./results/<exp>
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
         port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=PORT, exp=exp)
-        info(f'Starting server for experiment...')
+        info(f'Start server...')
         hashed_container = uuid.uuid4().hex
         os.system(
             f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
@@ -114,7 +115,7 @@ def evaluate(num_con: int, duration: int, exp: str) -> None:
         os.system(
             f'./FlameGraph/flamegraph.pl clients_nr_{i}.perf-folded > ./results/{exp}/clients_nr_{i}.svg'
         )
-        info(f'Cleaning up for next clients...')
+        info(f'Clean up for next clients...')
         os.system(f'docker stop server_teamd{hashed_container}')
         sleep(5)
 
