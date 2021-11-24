@@ -130,7 +130,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
         # stop server after basic task
         info(f'Stopping server after experiment {exp}...')
-        os.system('docker stop server_teamD')
+        # os.system('docker stop server_teamD')
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
         os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
