@@ -102,7 +102,7 @@ def evaluate(num_con: int, duration: int, exp: str) -> None:
         )
         sleep(7)
         os.system(
-            f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
+            f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
         )
         info(f'Cleaning up for next clients...')
