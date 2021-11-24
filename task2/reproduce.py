@@ -129,7 +129,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
         os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
-        sleep(10)
+        sleep(30)
 
     info('All experiments successfully reproduced!')
 
