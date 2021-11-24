@@ -80,6 +80,9 @@ def find_open_port(ip: str, port: int, interface: str, exp: str) -> int:
 def setup() -> None:
     info("Setup all docker images and repos for the experiments...")
     # clone repository for flame graphs
+    new_folder = ROOT.joinpath('FlameGraph')
+    if new_folder.exists():
+        shutil.rmtree(new_folder)
     os.system("git clone https://github.com/brendangregg/FlameGraph.git")
     # build image for servers
     os.system("docker build -t server_teamd -f server.Dockerfile .")
@@ -97,14 +100,14 @@ def evaluate(num_con: int, duration: int, exp: str) -> None:
         os.system(
             f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
         )
-        sleep(30)
+        sleep(7)
         os.system(
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
         )
         info(f'Cleaning up for next clients...')
         os.system(f'docker stop server_teamd{hashed_container}')
-        sleep(30)
+        sleep(5)
 
 
 def create_folder(parent: str, child: str) -> str:
