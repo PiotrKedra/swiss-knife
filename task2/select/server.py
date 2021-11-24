@@ -44,18 +44,25 @@ def main():
                 inputs.append(connection)
                 message_queues[connection] = queue.Queue()
             else:
-                data = s.recv(1024)
-                if data:
-                    data = b'HTTP/1.0 200 OK\r\n'
-                    data += b'Content-Length: 13\r\n\r\n'
-                    data += b'Hello, world!'
-                    message_queues[s].put(data)
-                    if s not in outputs:
-                        outputs.append(s)
-                else:
+                try:
+                    data = s.recv(1024)
+                    if data:
+                        data = b'HTTP/1.0 200 OK\r\n'
+                        data += b'Content-Length: 13\r\n\r\n'
+                        data += b'Hello, world!'
+                        message_queues[s].put(data)
+                        if s not in outputs:
+                            outputs.append(s)
+                    else:
+                        if s in outputs:
+                            outputs.remove(s)
+                        inputs.remove(s)
+                        s.close()
+                        del message_queues[s]
+                except ConnectionResetError:
+                    inputs.remove(s)
                     if s in outputs:
                         outputs.remove(s)
-                    inputs.remove(s)
                     s.close()
                     del message_queues[s]
 
@@ -64,6 +71,8 @@ def main():
                 next_msg = message_queues[s].get_nowait()
             except queue.Empty:
                 outputs.remove(s)
+            except KeyError:
+                s.close()
             else:
                 s.send(next_msg)
 
