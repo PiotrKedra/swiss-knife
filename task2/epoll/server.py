@@ -1,11 +1,15 @@
 import json
+import os
 
 import select
 import socket
 
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
 
 def get_network_settings():
-    with open('network_settings.txt') as json_file:
+    with open(os.path.join(__location__, 'network_settings.txt')) as json_file:
         data = json.load(json_file)
         return data
 
