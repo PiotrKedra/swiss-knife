@@ -11,15 +11,16 @@ if sys.version_info < (3, 0, 0):
     sys.exit(1)
 
 import os
-from typing import IO, Any, Callable
+from typing import IO, Any, Callable, List
 from pathlib import Path
 
 ROOT = Path(__file__).parent.resolve()
 HAS_TTY = sys.stderr.isatty()
 
 NUMBER_CLIENTS = [1, 2, 4, 8, 16, 32]
-INTERFACE = 'swissknife0'
-IP_ADDRESS = '169.254.68.39'
+INTERFACE_SERVER = 'swissknife0'
+INTERFACE_CLIENT = 'swissknife1'
+IPV6_ADDRESS = 'fe80::e63d:1aff:fe72:f1'
 
 
 def color_text(code: int, file: IO[Any] = sys.stdout) -> Callable[[str], None]:
@@ -36,13 +37,13 @@ warn = color_text(31, file=sys.stderr)
 info = color_text(32)
 
 
-def check_privileges():
+def check_privileges() -> None:
     if not os.environ.get("SUDO_UID") and os.geteuid() != 0:
         warn("You need to run this script with sudo or as root.")
         sys.exit(1)
 
 
-def find_open_port(ip, port, interface):
+def find_open_port(ip: str, port: int, interface: str) -> int:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, 25, str(interface + '\0').encode('utf-8'))
 
@@ -75,10 +76,6 @@ def find_open_port(ip, port, interface):
 
 
 def setup_docker() -> None:
-    """Setup all needed docker images for further operations.
-
-    :return: None
-    """
     info('Setup all docker images for the experiments...')
     # pull benchmark tool
     os.system('docker pull williamyeh/wrk')
@@ -93,7 +90,8 @@ def evaluate(num_con: int, duration: int, port: int, target: str) -> None:
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
         os.system(
-            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s http://{IP_ADDRESS}:{port} '
+            f'docker run --rm -it --net=host williamyeh/wrk -t{i} -c{num_con} -d{duration}s '
+            f'http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port} '
             f'| tee results/{target}/clients_nr_{i}.txt'
         )
 
@@ -107,7 +105,7 @@ def create_folder(parent: str, child: str) -> str:
     return new_folder
 
 
-def generate_graphs(experiments, port) -> None:
+def generate_graphs(experiments: List[str], port: int) -> None:
     create_folder(ROOT, 'results')
     results = create_folder(ROOT, 'results')
 
@@ -137,8 +135,8 @@ def generate_graphs(experiments, port) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['epoll']
-    open_port = find_open_port(interface=INTERFACE, ip=IP_ADDRESS, port=800)
+    experiments = ['basic']
+    open_port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=800)
     setup_docker()
     generate_graphs(experiments=experiments, port=open_port)
 
