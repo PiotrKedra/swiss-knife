@@ -118,11 +118,13 @@ def generate_graphs(experiments: List[str], port: int) -> None:
         info(f'Stopping possible running server of team D...')
         os.system('docker stop server_teamD')
 
+        sleep(15)
+
         # start server for basic task
         info(f'Starting server for experiment {exp}...')
         os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/scripts --name server_teamD server_teamd')
 
-        sleep(10)
+        sleep(15)
 
         evaluate(num_con=400, duration=10, port=port, target=exp)
 
