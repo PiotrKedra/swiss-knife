@@ -149,11 +149,18 @@ def generate_graphs(experiments: List[str]) -> None:
     info('All experiments successfully reproduced!')
 
 
+def collect_generated_plots(experiments: List[str]) -> None:
+    create_folder(ROOT, 'plots')
+    for exp in experiments:
+        os.system(f'sudo mv ./results/{exp}/plot_result.svg ./plots/plot_result_{exp}.svg')
+
+
 def main() -> None:
     check_privileges()
     experiments = ['basic']
     setup()
     generate_graphs(experiments=experiments)
+    collect_generated_plots(experiments=experiments)
 
 
 if __name__ == "__main__":
