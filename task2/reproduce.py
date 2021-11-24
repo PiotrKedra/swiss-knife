@@ -44,7 +44,7 @@ def check_privileges() -> None:
         sys.exit(1)
 
 
-def find_open_port(ip: str, port: int, interface: str) -> int:
+def find_open_port(ip: str, port: int, interface: str, exp: str) -> int:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, 25, str(interface + '\0').encode('utf-8'))
 
@@ -69,7 +69,7 @@ def find_open_port(ip: str, port: int, interface: str) -> int:
     }
     info(f'Port {port} is open and will be used...')
 
-    f = open('network_settings.txt', 'w')
+    f = open(f'./{exp}/network_settings.txt', 'w')
     print(json.dumps(network_settings), file=f)
 
     sock.close()
@@ -112,7 +112,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
     for exp in experiments:
         create_folder(results, exp)
 
-        port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=port)
+        port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=port, exp=exp)
 
         # stop possible running container with server of team D
         info(f'Stopping possible running server of team D...')
