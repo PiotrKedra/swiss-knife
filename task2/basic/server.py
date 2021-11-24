@@ -33,8 +33,9 @@ def main():
         connection, address = http_server.accept()
         data = connection.recv(1024)
         if data:
+            content_length = str(len(data)).encode()
             response = b'HTTP/1.0 200 OK\r\n'
-            response += b'Content-Length: 13\r\n\r\n'
+            response += b'Content-Length: ' + content_length + b'\r\n\r\n'
             response += b'Hello, world!'
             print(data)
             connection.sendall(response)
