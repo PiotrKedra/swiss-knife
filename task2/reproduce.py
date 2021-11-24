@@ -152,7 +152,7 @@ def generate_graphs(experiments: List[str]) -> None:
 def collect_generated_plots(experiments: List[str]) -> None:
     create_folder(ROOT, 'plots')
     for exp in experiments:
-        os.system(f'sudo mv ./results/{exp}/plot_result.svg ./plots/plot_result_{exp}.svg')
+        os.system(f'mv ./results/{exp}/plot_result.svg ./plots/plot_result_{exp}.svg')
 
 
 def main() -> None:
