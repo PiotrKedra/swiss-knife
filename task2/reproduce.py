@@ -80,7 +80,7 @@ def find_open_port(ip: str, port: int, interface: str, exp: str) -> int:
 def setup() -> None:
     info("Setup all docker images and repos for the experiments...")
     # clone repository for flame graphs
-    os.system("https://github.com/brendangregg/FlameGraph.git")
+    os.system("git clone https://github.com/brendangregg/FlameGraph.git")
     # build image for servers
     os.system("docker build -t server_teamd -f server.Dockerfile .")
     # build image for plots
