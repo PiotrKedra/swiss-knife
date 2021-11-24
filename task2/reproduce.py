@@ -136,7 +136,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['basic']
+    experiments = ['basic', 'epoll']
     open_port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=800)
     setup_docker()
     generate_graphs(experiments=experiments, port=open_port)
