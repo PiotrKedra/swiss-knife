@@ -3,7 +3,7 @@ import socket
 
 
 def get_network_settings():
-    with open('network_settings.txt') as json_file:
+    with open('./../network_settings.txt') as json_file:
         data = json.load(json_file)
         return data
 
