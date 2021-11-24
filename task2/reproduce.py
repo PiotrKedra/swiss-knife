@@ -96,7 +96,7 @@ def evaluate(num_con: int, duration: int, port: int, exp: str) -> None:
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
         )
-        info(f'Stopping server after experiment {exp}...')
+        info(f'Cleaning up for next clients...')
         os.system('docker stop server_teamD')
         sleep(30)
 
@@ -136,7 +136,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['epoll']
+    experiments = ['basic', 'epoll']
     setup_docker()
     generate_graphs(experiments=experiments, port=PORT)
 
