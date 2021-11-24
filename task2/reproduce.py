@@ -126,7 +126,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
         # start server for basic task
         info(f'Starting server for experiment {exp}...')
 
-        evaluate(num_con=50, duration=20, port=port, exp=exp)
+        evaluate(num_con=100, duration=10, port=port, exp=exp)
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
         os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results   _results_teamd')
