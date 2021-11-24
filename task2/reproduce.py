@@ -151,7 +151,7 @@ def generate_graphs(experiments: List[str]) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['select']
+    experiments = ['basic']
     setup()
     generate_graphs(experiments=experiments)
 
