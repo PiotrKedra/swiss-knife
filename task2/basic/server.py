@@ -12,7 +12,7 @@ def main():
     network_settings = get_network_settings()
 
     address_info = socket.getaddrinfo(
-        'fe80::e63d:1aff:fe72:f0%swissknife0', network_settings['port'], socket.AF_INET6, socket.SOCK_STREAM
+        'fe80::e63d:1aff:fe72:f1%swissknife0', network_settings['port'], socket.AF_INET6, socket.SOCK_STREAM
     )
     (family, sock_type, proto, canon_name, sock_address) = address_info[0]
     http_server = socket.socket(family, sock_type, proto)
@@ -28,7 +28,6 @@ def main():
             response = b'HTTP/1.0 200 OK\r\n'
             response += b'Content-Length: 13\r\n\r\n'
             response += b'Hello, world!'
-
             print(data)
             connection.sendall(response)
         connection.close()
