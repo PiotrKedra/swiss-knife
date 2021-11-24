@@ -141,7 +141,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['basic']
+    experiments = ['epoll']
     setup_docker()
     generate_graphs(experiments=experiments, port=PORT)
 
