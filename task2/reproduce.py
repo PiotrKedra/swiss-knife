@@ -18,6 +18,7 @@ ROOT = Path(__file__).parent.resolve()
 HAS_TTY = sys.stderr.isatty()
 
 NUMBER_CLIENTS = [1, 2, 4, 8, 16, 32]
+PORT = 800
 INTERFACE_SERVER = 'swissknife0'
 INTERFACE_CLIENT = 'swissknife1'
 IPV6_ADDRESS = 'fe80::e63d:1aff:fe72:f1'
@@ -111,6 +112,8 @@ def generate_graphs(experiments: List[str], port: int) -> None:
     for exp in experiments:
         create_folder(results, exp)
 
+        port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=port)
+
         # stop possible running container with server of team D
         info(f'Stopping possible running server of team D...')
         os.system('docker stop server_teamD')
@@ -136,9 +139,8 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 def main() -> None:
     check_privileges()
     experiments = ['epoll']
-    open_port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=800)
     setup_docker()
-    generate_graphs(experiments=experiments, port=open_port)
+    generate_graphs(experiments=experiments, port=PORT)
 
 
 if __name__ == "__main__":
