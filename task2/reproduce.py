@@ -93,7 +93,7 @@ def evaluate(num_con: int, duration: int, port: int, exp: str) -> None:
         info(f'Run benchmark test for {i} clients...')
         hashed_container = uuid.uuid4().hex
         os.system(
-            f'docker run -itd --restart --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
+            f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
         )
         sleep(30)
         os.system(
