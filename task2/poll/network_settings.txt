@@ -1,0 +1,1 @@
+{"interface": "swissknife0", "ip": "fe80::e63d:1aff:fe72:f1", "port": 800}
