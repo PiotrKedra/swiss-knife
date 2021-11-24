@@ -14,10 +14,10 @@ def main():
     address_info = socket.getaddrinfo(
         'fe80::e63d:1aff:fe72:f0%swissknife0', network_settings['port'], socket.AF_INET6, socket.SOCK_STREAM
     )
-    http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     (family, sock_type, proto, canon_name, sock_address) = address_info[0]
-    http_server.socket(family, sock_type, proto)
+    http_server = socket.socket(family, sock_type, proto)
 
+    # http_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # http_server.setsockopt(socket.SOL_SOCKET, 25, str(network_settings['interface'] + '\0').encode('utf-8'))
     # http_server.bind(('', network_settings['port']))
     http_server.listen(128)
