@@ -96,7 +96,7 @@ def evaluate(num_con: int, duration: int, port: int, exp: str) -> None:
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
         )
-        info(f'Stopping server after experiment {exp}...')
+        os.system('docker stop server_teamD')
         sleep(10)
 
 
