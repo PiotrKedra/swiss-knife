@@ -46,7 +46,9 @@ def main():
             else:
                 data = s.recv(1024)
                 if data:
-                    data = b"HTTP/1.1 200 OK\r\n\r\n" + data
+                    data = b'HTTP/1.0 200 OK\r\n'
+                    data += b'Content-Length: 13\r\n\r\n'
+                    data += b'Hello, world!'
                     message_queues[s].put(data)
                     if s not in outputs:
                         outputs.append(s)
