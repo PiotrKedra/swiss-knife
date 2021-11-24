@@ -90,7 +90,7 @@ def setup() -> None:
     os.system("docker build -t plot_results_teamd -f plot.Dockerfile .")
 
 
-def evaluate(num_con: int, duration: int, exp: str) -> None:
+def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
     info(f'Start {exp} experiment...')
     # run benchmarks and output the results into folder ./results/<exp>
     for i in NUMBER_CLIENTS:
@@ -101,23 +101,24 @@ def evaluate(num_con: int, duration: int, exp: str) -> None:
         os.system(
             f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
         )
-        sleep(7)
+        sleep(20)
         os.system(
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
         )
-        os.system(
-            f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
-        )
-        os.system(
-            f'perf script | ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}.perf-folded"'
-        )
-        os.system(
-            f'./FlameGraph/flamegraph.pl clients_nr_{i}.perf-folded > ./results/{exp}/clients_nr_{i}.svg'
-        )
+        if sys_profile:
+            os.system(
+                f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
+            )
+            os.system(
+                f'perf script | ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}.perf-folded"'
+            )
+            os.system(
+                f'./FlameGraph/flamegraph.pl clients_nr_{i}.perf-folded > ./results/{exp}/clients_nr_{i}.svg'
+            )
         info(f'Clean up for next clients...')
         os.system(f'docker stop server_teamd{hashed_container}')
-        sleep(5)
+        sleep(20)
 
 
 def create_folder(parent: str, child: str) -> str:
@@ -150,7 +151,7 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
 def main() -> None:
     check_privileges()
-    experiments = ['basic', 'poll', 'epoll', 'select']
+    experiments = ['select']
     setup()
     generate_graphs(experiments=experiments, port=PORT)
 
