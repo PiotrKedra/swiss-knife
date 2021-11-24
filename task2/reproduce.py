@@ -102,8 +102,17 @@ def evaluate(num_con: int, duration: int, exp: str) -> None:
         )
         sleep(7)
         os.system(
-            f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
+            f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{exp}/clients_nr_{i}.txt'
+        )
+        os.system(
+            f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
+        )
+        os.system(
+            f'perf script | ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}.perf-folded"'
+        )
+        os.system(
+            f'./FlameGraph/flamegraph.pl clients_nr_{i}.perf-folded > ./results/{exp}/clients_nr_{i}.svg'
         )
         info(f'Cleaning up for next clients...')
         os.system(f'docker stop server_teamd{hashed_container}')
