@@ -86,15 +86,16 @@ def setup_docker() -> None:
     os.system('docker build -t plot_results_teamd -f plot.Dockerfile .')
 
 
-def evaluate(num_con: int, duration: int, port: int, target: str) -> None:
+def evaluate(num_con: int, duration: int, port: int, target: str, exp: str) -> None:
     # run benchmarks and output the results into folder ./wrk_results
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
-        sleep(30)
+        os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/scripts --name server_teamD server_teamd')
         os.system(
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
             f'| tee results/{target}/clients_nr_{i}.txt'
         )
+        info(f'Stopping server after experiment {exp}...')
 
 
 def create_folder(parent: str, child: str) -> str:
@@ -119,13 +120,8 @@ def generate_graphs(experiments: List[str], port: int) -> None:
         info(f'Stopping possible running server of team D...')
         os.system('docker stop server_teamD')
 
-        sleep(15)
-
         # start server for basic task
         info(f'Starting server for experiment {exp}...')
-        os.system(f'docker run --rm -itd --net=host -v "$(pwd)/{exp}":/scripts --name server_teamD server_teamd')
-
-        sleep(15)
 
         evaluate(num_con=50, duration=20, port=port, target=exp)
 
