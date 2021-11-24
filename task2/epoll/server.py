@@ -60,7 +60,7 @@ def main():
                     responses[fileno] += b'Hello, world!'
                     requests[fileno] = ''
                 else:
-                    print('[{:02d}] exit or hung up'.format(fileno))
+                    # print('[{:02d}] exit or hung up'.format(fileno))
                     poll.unregister(fileno)
                     connections[fileno].close()
                     del connections[fileno], requests[fileno], responses[fileno]
