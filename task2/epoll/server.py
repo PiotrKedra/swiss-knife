@@ -35,6 +35,8 @@ def main():
     poll = select.epoll()
     poll.register(http_server.fileno(), select.EPOLLIN)
 
+    print(network_settings['port'])
+
     while True:
         events = poll.poll(1)
 
