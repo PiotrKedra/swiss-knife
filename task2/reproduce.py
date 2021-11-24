@@ -147,7 +147,7 @@ def generate_graphs(experiments: List[str]) -> None:
     for exp in experiments:
         create_folder(results, exp)
 
-        evaluate(num_con=100, duration=10, exp=exp, sys_profile=False)
+        evaluate(num_con=100, duration=10, exp=exp, sys_profile=True)
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
         os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
