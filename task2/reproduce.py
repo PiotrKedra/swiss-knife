@@ -49,7 +49,7 @@ def find_open_port(ip: str, port: int, interface: str, exp: str) -> int:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, 25, str(interface + '\0').encode('utf-8'))
 
-    info(f'Start to find a open port at port {port}...')
+    info(f'Find open port...')
     while True:
         try:
             info(f'Check {port}...')
