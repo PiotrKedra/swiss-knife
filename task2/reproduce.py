@@ -129,14 +129,13 @@ def generate_graphs(experiments: List[str], port: int) -> None:
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
         os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
-        sleep(30)
 
     info('All experiments successfully reproduced!')
 
 
 def main() -> None:
     check_privileges()
-    experiments = ['basic', 'epoll']
+    experiments = ['epoll']
     open_port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=800)
     setup_docker()
     generate_graphs(experiments=experiments, port=open_port)
