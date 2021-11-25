@@ -161,7 +161,8 @@ def create_folder(parent: str, child: str) -> str:
 
 def remove_folder(parent: str, child: str) -> str:
     removed_folder = parent.joinpath(child)
-    shutil.rmtree(removed_folder)
+    if removed_folder.exists():
+        shutil.rmtree(removed_folder)
 
 
 def start_nix_shell():
