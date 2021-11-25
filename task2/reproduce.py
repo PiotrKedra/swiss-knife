@@ -188,7 +188,7 @@ def generate_graphs(experiments: List[str]) -> None:
 
 def collect_generated_plots(experiments: List[str]) -> None:
     for exp in experiments:
-        os.system(f'mv ./results/{exp}/plot_result.svg ./plots/plot_result_{exp}.svg')
+        os.system(f'mv ./benchmarks/{exp}/plot_result.svg ./results/plot_result_{exp}.svg')
 
 
 def main() -> None:
