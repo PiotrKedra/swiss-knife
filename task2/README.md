@@ -17,7 +17,7 @@
 The first step is to get the source code for the task 2 from our repository:
 
 ```console
-$ git clone <repository>
+$ git clone https://github.com/anonym-repos-only/swissknife.git
 ```
 
 Use ```sudo``` to run the evaluations! The server starts freshly for each benchmark test. This takes a while, so please
