@@ -25,6 +25,8 @@ INTERFACE_CLIENT = 'swissknife1'
 IPV6_ADDRESS = 'fe80::e63d:1aff:fe72:f1'
 
 
+# styling of stdout
+# partially taken from: https://github.com/Mic92/rkt-io (21.11.2021, 18:00 (UTC))
 def color_text(code: int, file: IO[Any] = sys.stdout) -> Callable[[str], None]:
     def wrapper(text: str) -> None:
         if HAS_TTY:
@@ -114,7 +116,7 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
             f'| tee benchmarks/{exp}/clients_nr_{i}.txt'
         )
 
-        # system profiling only done for 8 clients
+        # system profiling only done for 16 clients
         if sys_profile and i == 16:
             info("Start system profiling...")
             os.system(f'docker stop server_teamd{hashed_container}')
@@ -134,12 +136,11 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
                 f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
             )
 
-            # create flame graphs as SVG
+            # create Flame Graphs as SVG
             os.system(
                 f'perf script | perl ./FlameGraph/stackcollapse-perf.pl > ./system_profiling/flame_graph_{exp}.perf-folded'
             )
-
-            info(f'Flame graph for experiment {exp} saved to ./results...')
+            info(f'Flame Graph for experiment {exp} saved to ./results...')
             os.system(
                 f'perl ./FlameGraph/flamegraph.pl ./system_profiling/flame_graph_{exp}.perf-folded > ./results/flame_graph_{exp}.svg'
             )
@@ -166,8 +167,8 @@ def remove_folder(parent: str, child: str) -> None:
 
 
 def install_required_packages():
-    os.system("nix-env -iA nixos.wrk > /dev/null")
-    os.system("nix-env -iA nixos.perf-tools > /dev/null")
+    os.system("nix-env -iA nixos.wrk")
+    os.system("nix-env -iA nixos.perf-tools")
 
 
 def generate_graphs(experiments: List[str]) -> None:

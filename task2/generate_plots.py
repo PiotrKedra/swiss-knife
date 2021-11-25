@@ -59,12 +59,7 @@ def get_max_req_per_sec_from_wrk_file(file_name: str) -> str:
         should_stop = False
         gaps = True
         look_for_non_space_char = True
-        number_of_space_gap = 0
         for character in lines[4]:
-
-            # wrk was not able to connect to target
-            if lines[0:6] == "unable":
-                break
 
             if should_start == False:
 
