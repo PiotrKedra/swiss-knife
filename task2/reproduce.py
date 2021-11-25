@@ -166,8 +166,8 @@ def remove_folder(parent: str, child: str) -> None:
 
 
 def install_required_packages():
-    os.system("nix-env -iA nixos.wrk")
-    os.system("nix-env -iA nixos.perf-tools")
+    os.system("nix-env -iA nixos.wrk > /dev/null")
+    os.system("nix-env -iA nixos.perf-tools > /dev/null")
 
 
 def generate_graphs(experiments: List[str]) -> None:
