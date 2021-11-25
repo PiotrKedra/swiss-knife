@@ -165,8 +165,9 @@ def remove_folder(parent: str, child: str) -> None:
         shutil.rmtree(removed_folder)
 
 
-def start_nix_shell():
-    pass
+def install_required_packages():
+    os.system("nix-env -iA nixos.wrk")
+    os.system("nix-env -iA nixos.perf-tools")
 
 
 def generate_graphs(experiments: List[str]) -> None:
@@ -195,6 +196,7 @@ def main() -> None:
     check_privileges()
     experiments = ['basic', 'poll', 'epoll', 'select']
     setup()
+    install_required_packages()
     generate_graphs(experiments=experiments)
     collect_generated_plots(experiments=experiments)
 
