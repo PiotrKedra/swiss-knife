@@ -78,54 +78,75 @@ def find_open_port(ip: str, port: int, interface: str, exp: str) -> int:
 
 def setup() -> None:
     info("Setup all docker images and repos for the experiments...")
+
     # clone repository for flame graphs
-    new_folder = ROOT.joinpath('FlameGraph')
-    if new_folder.exists():
-        shutil.rmtree(new_folder)
+    remove_folder(ROOT, 'FlameGraph')
     os.system("git clone https://github.com/brendangregg/FlameGraph.git")
+
     # build image for servers
     os.system("docker build -t server_teamd -f server.Dockerfile .")
+
     # build image for plots
     os.system("docker build -t plot_results_teamd -f plot.Dockerfile .")
 
 
 def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
     info(f'Start {exp} experiment...')
+
     # run benchmarks and output the results into folder ./results/<exp>
     for i in NUMBER_CLIENTS:
         info(f'Run benchmark test for {i} clients...')
+
+        # find open port
         port = find_open_port(interface=INTERFACE_SERVER, ip=IPV6_ADDRESS, port=PORT, exp=exp)
+
         info(f'Start server...')
         hashed_container = uuid.uuid4().hex
         os.system(
             f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
         )
+
         sleep(30)
+
+        # execute benchmark test
         os.system(
             f'wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}" '
-            f'| tee results/{exp}/clients_nr_{i}.txt'
+            f'| tee benchmarks/{exp}/clients_nr_{i}.txt'
         )
-        if sys_profile and i == 1:
+
+        # system profiling only done for 8 clients
+        if sys_profile and i == 8:
+            info("Start system profiling...")
             os.system(f'docker stop server_teamd{hashed_container}')
+
             sleep(30)
 
+            # start server for system profiling
             hashed_container = uuid.uuid4().hex
             os.system(
                 f'docker run -itd --restart=on-failure --net=host -v "$(pwd)/{exp}":/scripts --name server_teamd{hashed_container} server_teamd'
             )
+
             sleep(30)
 
+            # execute system profiling
             os.system(
                 f'perf record -F 99 -a -g wrk -t{i} -c{num_con} -d{duration}s "http://[{IPV6_ADDRESS}%{INTERFACE_CLIENT}]:{port}"'
             )
+
+            # create flame graphs as SVG
             os.system(
-                f'perf script | perl ./FlameGraph/stackcollapse-perf.pl > clients_nr_{i}_{exp}.perf-folded'
+                f'perf script | perl ./FlameGraph/stackcollapse-perf.pl > ./system_profiling/flame_graph_{exp}.perf-folded'
             )
+
+            info(f'Flame graph for experiment {exp} saved to ./results...')
             os.system(
-                f'perl ./FlameGraph/flamegraph.pl clients_nr_{i}_{exp}.perf-folded > ./plots/clients_nr_{i}_{exp}.svg'
+                f'perl ./FlameGraph/flamegraph.pl ./system_profiling/flame_graph_{exp}.perf-folded > ./results/flame_graph_{exp}.svg'
             )
+
         info(f'Clean up for next clients...')
         os.system(f'docker stop server_teamd{hashed_container}')
+
         sleep(30)
 
 
@@ -138,22 +159,28 @@ def create_folder(parent: str, child: str) -> str:
     return new_folder
 
 
+def remove_folder(parent: str, child: str) -> str:
+    removed_folder = parent.joinpath(child)
+    shutil.rmtree(removed_folder)
+
+
 def start_nix_shell():
     pass
 
 
 def generate_graphs(experiments: List[str]) -> None:
-    create_folder(ROOT, 'plots')
     create_folder(ROOT, 'results')
-    results = create_folder(ROOT, 'results')
+    create_folder(ROOT, 'system_profiling')
+    create_folder(ROOT, 'benchmarks')
+    benchmarks = create_folder(ROOT, 'benchmarks')
 
     for exp in experiments:
-        create_folder(results, exp)
+        create_folder(benchmarks, exp)
 
         evaluate(num_con=100, duration=10, exp=exp, sys_profile=True)
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
-        os.system(f'docker run --rm -it -v "$(pwd)/results/{exp}":/results plot_results_teamd')
+        os.system(f'docker run --rm -it -v "$(pwd)/benchmarks/{exp}":/results plot_results_teamd')
 
     info('All experiments successfully reproduced!')
 
