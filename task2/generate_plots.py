@@ -140,7 +140,7 @@ def generate_plot() -> None:
     sns.scatterplot(x="clients_nr", y="max_values", data=df_max, color='red', marker="X")
 
     plt.xlabel('Number of Clients')
-    plt.ylabel('Requests per Second (RPS)')
+    plt.ylabel('1000 Requests per Second (RPS)')
     plt.tight_layout()
 
     plt.savefig('/results/plot_result.svg')
