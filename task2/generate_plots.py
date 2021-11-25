@@ -50,6 +50,7 @@ def get_avr_req_per_sec_from_wrk_file(file_name: str) -> str:
                         should_stop = True
         return req_per_sec
 
+
 def get_max_req_per_sec_from_wrk_file(file_name: str) -> str:
     with open('results/' + file_name) as f:
         lines = f.readlines()
@@ -101,16 +102,17 @@ def get_max_req_per_sec_from_wrk_file(file_name: str) -> str:
 
         return req_per_sec
 
+
 def get_req_per_sec_per_each_clients_number() -> List[float]:
     avg_req_per_sec_values = []
     max_req_per_sec_values = []
 
     for clients_number in CLIENTS_NUMBERS:
         avg_value = get_avr_req_per_sec_from_wrk_file('clients_nr_' + str(clients_number) + '.txt')
-        avg_req_per_sec_values.append(float(avg_value))
+        avg_req_per_sec_values.append(float(avg_value) / 1000)
 
         max_value = get_max_req_per_sec_from_wrk_file('clients_nr_' + str(clients_number) + '.txt')
-        max_req_per_sec_values.append(float(max_value))
+        max_req_per_sec_values.append(float(max_value) / 1000)
 
     return {
         'avg_values': avg_req_per_sec_values,
@@ -119,19 +121,23 @@ def get_req_per_sec_per_each_clients_number() -> List[float]:
 
 
 def generate_plot() -> None:
-
     req_per_sec_values_obj = get_req_per_sec_per_each_clients_number()
-    print(req_per_sec_values_obj)
 
     req_per_sec_values = req_per_sec_values_obj['avg_values']
     max_req_per_sec_values = req_per_sec_values_obj['max_values']
 
-    df = pd.DataFrame(data={
+    df_avg = pd.DataFrame(data={
         'clients_nr': CLIENTS_NUMBERS,
-        'rps_values': req_per_sec_values
+        'avg_values': req_per_sec_values
     })
 
-    sns.scatterplot(x="clients_nr", y="rps_values", data=df)
+    df_max = pd.DataFrame(data={
+        'clients_nr': CLIENTS_NUMBERS,
+        'max_values': max_req_per_sec_values
+    })
+
+    sns.scatterplot(x="clients_nr", y="avg_values", data=df_avg)
+    sns.scatterplot(x="vus", y="rps", data=df_max, color='red', marker="x", linewidth=2)
 
     plt.xlabel('Number of Clients')
     plt.ylabel('Requests per Second (RPS)')
