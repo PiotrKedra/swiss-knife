@@ -28,6 +28,7 @@ You might grab a coffee...since the script needs about <b>32</b> minutes to test
 Run the evaluations with:
 
 ```console
+$ cd task2
 $ sudo python reproduce.py 
 ```
 
