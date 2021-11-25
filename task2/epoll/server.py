@@ -60,9 +60,9 @@ def main():
                 if data and data.decode() != "QUIT":
                     poll.modify(fileno, select.EPOLLOUT)
                     content_length = str(len(data)).encode()
-                    response = b'HTTP/1.0 200 OK\r\n'
-                    response += b'Content-Length: ' + content_length + b'\r\n\r\n'
-                    response += data
+                    responses[fileno] = b'HTTP/1.0 200 OK\r\n'
+                    responses[fileno] += b'Content-Length: ' + content_length + b'\r\n\r\n'
+                    responses[fileno] += data
                     requests[fileno] = ''
                 else:
                     # print('[{:02d}] exit or hung up'.format(fileno))

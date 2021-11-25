@@ -51,7 +51,7 @@ def main():
                         response = b'HTTP/1.0 200 OK\r\n'
                         response += b'Content-Length: ' + content_length + b'\r\n\r\n'
                         response += data
-                        message_queues[s].put(data)
+                        message_queues[s].put(response)
                         if s not in outputs:
                             outputs.append(s)
                     else:
