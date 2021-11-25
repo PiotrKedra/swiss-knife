@@ -29,14 +29,11 @@ $ cd task2
 $ sudo python reproduce.py 
 ```
 
-The graphs will be written to `./results/<name_of_experiment>`. Where the name of the experiments are:
-
-- basic
-- poll
-- epoll
-- select
+The plots and flame graphs will be written to ```./results```.
 
 Reproduced figures:
 
-- <b>Figure 1</b> - Showing requests per seconds for the basic HTTP server
-- <b>Figure 2</b> - Showing requests per seconds for the HTTP serverls
+- <b>Figure 1 (a)</b> - Showing requests per seconds for the basic HTTP server
+- <b>Figure 1 (b)</b> - Showing requests per seconds for the HTTP server based on select
+- <b>Figure 2 (a)</b> - Showing requests per seconds for the HTTP server based on poll
+- <b>Figure 2 (b)</b> - Showing requests per seconds for the HTTP server based on epoll

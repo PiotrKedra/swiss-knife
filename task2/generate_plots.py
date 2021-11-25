@@ -137,7 +137,7 @@ def generate_plot() -> None:
     })
 
     sns.scatterplot(x="clients_nr", y="avg_values", data=df_avg)
-    sns.scatterplot(x="clients_nr", y="max_values", data=df_max, color='red', marker="x", linewidth=2)
+    sns.scatterplot(x="clients_nr", y="max_values", data=df_max, color='red', marker="X")
 
     plt.xlabel('Number of Clients')
     plt.ylabel('Requests per Second (RPS)')
