@@ -15,7 +15,7 @@ sns.set_context("paper", rc={"font.size": 6, "axes.titlesize": 12, "axes.labelsi
 sns.set_palette(sns.color_palette(palette="gray", n_colors=2))
 
 
-def get_req_per_sec_from_wrk_file(file_name: str) -> str:
+def get_avr_req_per_sec_from_wrk_file(file_name: str) -> str:
     with open('results/' + file_name) as f:
         lines = f.readlines()
         req_per_sec = ''
@@ -50,19 +50,81 @@ def get_req_per_sec_from_wrk_file(file_name: str) -> str:
                         should_stop = True
         return req_per_sec
 
+def get_max_req_per_sec_from_wrk_file(file_name: str) -> str:
+    with open('results/' + file_name) as f:
+        lines = f.readlines()
+        req_per_sec = ''
+        should_start = False
+        should_stop = False
+        gaps = True
+        look_for_non_space_char = True
+        number_of_space_gap = 0
+        for character in lines[4]:
+
+            # wrk was not able to connect to target
+            if lines[0:6] == "unable":
+                break
+
+            if should_start == False:
+
+                if look_for_non_space_char == True:
+                    if character != ' ':
+                        look_for_non_space_char = False
+                        gaps += 1
+                else:
+                    if character == ' ':
+                        look_for_non_space_char = True
+
+                if gaps == 5:
+                    req_per_sec += character
+                    should_start = True
+
+                continue
+
+            if should_start:
+                if character == ' ':
+                    if should_stop:
+                        break
+                    continue
+                else:
+                    if character.isdigit() or character == '.':
+                        req_per_sec = req_per_sec + character
+                    elif character == 'k':
+                        req_per_sec = req_per_sec.replace('.', '')
+                        req_per_sec = req_per_sec + '0'
+                        break
+                    else:
+                        break
+
+                    if character == '.':
+                        should_stop = True
+
+        return req_per_sec
 
 def get_req_per_sec_per_each_clients_number() -> List[float]:
-    req_per_sec_values = []
+    avg_req_per_sec_values = []
+    max_req_per_sec_values = []
 
     for clients_number in CLIENTS_NUMBERS:
-        value = get_req_per_sec_from_wrk_file('clients_nr_' + str(clients_number) + '.txt')
-        req_per_sec_values.append(float(value))
+        avg_value = get_avr_req_per_sec_from_wrk_file('clients_nr_' + str(clients_number) + '.txt')
+        avg_req_per_sec_values.append(float(avg_value))
 
-    return req_per_sec_values
+        max_value = get_max_req_per_sec_from_wrk_file('clients_nr_' + str(clients_number) + '.txt')
+        max_req_per_sec_values.append(float(max_value))
+
+    return {
+        'avg_values': avg_req_per_sec_values,
+        'max_values': max_req_per_sec_values
+    }
 
 
 def generate_plot() -> None:
-    req_per_sec_values = get_req_per_sec_per_each_clients_number()
+
+    req_per_sec_values_obj = get_req_per_sec_per_each_clients_number()
+    print(req_per_sec_values_obj)
+
+    req_per_sec_values = req_per_sec_values_obj['avg_values']
+    max_req_per_sec_values = req_per_sec_values_obj['max_values']
 
     df = pd.DataFrame(data={
         'clients_nr': CLIENTS_NUMBERS,
