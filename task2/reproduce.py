@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.resolve()
 HAS_TTY = sys.stderr.isatty()
 
-NUMBER_CLIENTS = [1, 2, 4, 8, 16, 32]
+NUMBER_CLIENTS = [1, 2, 6, 16, 32]
 PORT = 800
 INTERFACE_SERVER = 'swissknife0'
 INTERFACE_CLIENT = 'swissknife1'
@@ -115,7 +115,7 @@ def evaluate(num_con: int, duration: int, exp: str, sys_profile: bool) -> None:
         )
 
         # system profiling only done for 8 clients
-        if sys_profile and i == 8:
+        if sys_profile and i == 16:
             info("Start system profiling...")
             os.system(f'docker stop server_teamd{hashed_container}')
 
@@ -178,7 +178,7 @@ def generate_graphs(experiments: List[str]) -> None:
     for exp in experiments:
         create_folder(benchmarks, exp)
 
-        evaluate(num_con=100, duration=10, exp=exp, sys_profile=True)
+        evaluate(num_con=100, duration=20, exp=exp, sys_profile=True)
 
         info(f'Create figure for experiment {exp} inside folder ./results/{exp}...')
         os.system(f'docker run --rm -it -v "$(pwd)/benchmarks/{exp}":/results plot_results_teamd')
