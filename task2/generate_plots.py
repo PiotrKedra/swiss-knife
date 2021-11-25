@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-CLIENTS_NUMBERS = [1, 2, 4, 8, 16, 32]
+CLIENTS_NUMBERS = [1, 2, 6, 16, 32]
 
 # styling of plots
 # partially taken from: https://github.com/Mic92/rkt-io (21.11.2021, 18:00 (UTC))
