@@ -159,7 +159,7 @@ def create_folder(parent: str, child: str) -> str:
     return new_folder
 
 
-def remove_folder(parent: str, child: str) -> str:
+def remove_folder(parent: str, child: str) -> None:
     removed_folder = parent.joinpath(child)
     if removed_folder.exists():
         shutil.rmtree(removed_folder)
