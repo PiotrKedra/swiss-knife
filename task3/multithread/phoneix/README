@@ -1,4 +1,8 @@
-# How to run
+### How to run
+
+```console
+$ git clone https://github.com/anonym-repos-only/swissknife.git
+```
 
 ```console
 $ nix-shell -p gcc
