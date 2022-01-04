@@ -1,8 +1,6 @@
 ### How to run
 
-```console
-$ git clone https://github.com/anonym-repos-only/swissknife.git
-```
+First we need to nix-shell to be able to use c
 
 ```console
 $ nix-shell -p gcc
