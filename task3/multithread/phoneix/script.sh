@@ -1,6 +1,5 @@
 echo "Building project.."
 
-nix-shell -p gcc
 make
 
 echo "Finished building."
@@ -61,4 +60,4 @@ do
 
 done
 
-echo "Finished benchmarking matrix multiply example."
+echo "Finished benchmarking matrix multiply example. Results can be found within /results folder."
