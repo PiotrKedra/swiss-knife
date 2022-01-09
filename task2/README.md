@@ -25,8 +25,6 @@ be patient until the whole process will finish.
 
 You might grab a coffee...since the script needs about <b>32</b> minutes to test all servers.
 
-The script for the evaluations is inside the folder ```./swiss-knife/task2```. 
-
 Run the evaluations with: 
 
 ```console
