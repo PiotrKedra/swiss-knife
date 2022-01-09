@@ -1,4 +1,4 @@
-sudo mkdir -p results
+mkdir results
 
 
 echo "Building PARSEC apps..."
