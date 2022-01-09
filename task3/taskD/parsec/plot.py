@@ -65,7 +65,7 @@ def generate_plot(result_name):
 
 if __name__ == "__main__":
 
-    APP_TYPES = ["bodytrack", "facesim", "ferret"]
+    APP_TYPES = ["bodytrack", "blacksholes", "ferret"]
     
     for app in APP_TYPES:
         generate_plot(app)

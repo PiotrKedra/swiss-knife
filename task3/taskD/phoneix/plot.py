@@ -27,7 +27,7 @@ def read_from_file(file_name):
 
 def generate_plot(result_name):
     fig, axes = plt.subplots(1, 3)
-    fig.suptitle('Word count execution time by increasing number of threads for different data size.')
+    fig.suptitle(result_name + ' execution time by increasing number of threads for different data size.')
     fig.set_size_inches(15, 4.5, forward=True)
 
 

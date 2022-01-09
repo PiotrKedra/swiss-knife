@@ -8,7 +8,7 @@ sudo mkdir -p results
 
 echo "Building PARSEC apps..."
 parsecmgmt -a build -p bodytrack
-parsecmgmt -a build -p facesim
+parsecmgmt -a build -p blacksholes
 parsecmgmt -a build -p ferret
 
 
@@ -30,21 +30,21 @@ echo "Finished bodytrack example."
 
 
 
-echo "Starting benchmarking facesim example with PARSEC.."
+echo "Starting benchmarking blacksholes example with PARSEC.."
 
 for i in 1 2 4 8 16 32 64 128
 do
     echo "Running with $i cores"
 
-    parsecmgmt -a run -p facesim -i simsmall -n $i > results/facesim_small_"$i".txt
+    parsecmgmt -a run -p blacksholes -i simsmall -n $i > results/blacksholes_small_"$i".txt
 
-    parsecmgmt -a run -p facesim -i simmedium -n $i > results/facesim_medium_"$i".txt
+    parsecmgmt -a run -p blacksholes -i simmedium -n $i > results/blacksholes_medium_"$i".txt
 
-    parsecmgmt -a run -p facesim -i simlarge -n $i > results/facesim_large_"$i".txt
+    parsecmgmt -a run -p blacksholes -i simlarge -n $i > results/blacksholes_large_"$i".txt
 
 done
 
-echo "Finished facesim example."
+echo "Finished blacksholes example."
 
 
 echo "Starting benchmarking ferret example with PARSEC.."
