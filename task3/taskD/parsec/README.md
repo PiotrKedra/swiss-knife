@@ -16,10 +16,19 @@ $ cd parsec-benchmark
 $ nix-shell
 ```
 
+
+```console
+$ . env.sh
+```
+
+```console
+$ . get-inputs
+```
+
 Now we can go back  ```cd ..``` and run script that will run all the benchamrks:
 
 ```console
-$ sudo sh script.sh
+$ sh script.sh
 ```
 
 
