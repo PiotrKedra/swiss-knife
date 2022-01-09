@@ -1,0 +1,155 @@
+[PARSEC] Benchmarks to run:  parsec.ferret
+
+[PARSEC] [========== Running benchmark parsec.ferret [1] ==========]
+[PARSEC] Deleting old run directory.
+[PARSEC] Setting up run directory.
+[PARSEC] Unpacking benchmark input 'simmedium'.
+corel/
+corel/__cass.env
+corel/corel.raw
+corel/lsh.lsh
+corel/map_corel.map
+queries/
+queries/acorn.jpg
+queries/air-fighter.jpg
+queries/airplane-2.jpg
+queries/airplane-takeoff-3.jpg
+queries/alcatraz-island-prison.jpg
+queries/american-flag-3.jpg
+queries/apartment.jpg
+queries/apollo-2.jpg
+queries/apollo-earth.jpg
+queries/apple-11.jpg
+queries/apple-14.jpg
+queries/apple-16.jpg
+queries/apple-7.jpg
+queries/aquarium-fish-25.jpg
+queries/arches-9.jpg
+queries/arches.jpg
+queries/archipelago-2.jpg
+queries/archipelago.jpg
+queries/balboa-park.jpg
+queries/balloons-14.jpg
+queries/banana-1.jpg
+queries/bay.jpg
+queries/beach-2.jpg
+queries/bee.jpg
+queries/bird-2.jpg
+queries/black-currant-4.jpg
+queries/black-headed-sheep.jpg
+queries/boat-race.jpg
+queries/bookshelf.jpg
+queries/branch-2.jpg
+queries/buttercup-2.jpg
+queries/cable-2.jpg
+queries/cabrillo-national-monument.jpg
+queries/cactus-115.jpg
+queries/cactus-71.jpg
+queries/caesars-palace-2.jpg
+queries/canyon.jpg
+queries/cheese-plate.jpg
+queries/church-tower-with-mountain-in-background.jpg
+queries/civic-si-2.jpg
+queries/clip-3.jpg
+queries/clock-2.jpg
+queries/clock.jpg
+queries/clouds-2.jpg
+queries/coast.jpg
+queries/coffee-beans-2.jpg
+queries/columbia-start.jpg
+queries/concrete-cross.jpg
+queries/crawfish-3.jpg
+queries/death-valley-sand-dunes.jpg
+queries/duck-4.jpg
+queries/duck-5.jpg
+queries/egret-2.jpg
+queries/ellen-browning-scripps-park.jpg
+queries/field-20.jpg
+queries/figs.jpg
+queries/fireworks-11.jpg
+queries/fly.jpg
+queries/food-18.jpg
+queries/forest-16.jpg
+queries/forest-3.jpg
+queries/forest-38.jpg
+queries/forest-54.jpg
+queries/forest-65.jpg
+[PARSEC] Running 'time /home/teamd/piotr/lol/swiss-knife/task3/taskD/parsec/parsec-benchmark/pkgs/apps/ferret/inst/amd64-linux.gcc/bin/ferret corel lsh queries 10 20 16 output.txt':
+[PARSEC] [---------- Beginning of output ----------]
+PARSEC Benchmark Suite Version 3.0-beta-20150206
+(9,1)
+(10,2)
+(11,3)
+(11,4)
+(14,5)
+(16,6)
+(16,7)
+(17,8)
+(21,9)
+(23,10)
+(23,11)
+(24,12)
+(25,13)
+(25,14)
+(26,15)
+(27,16)
+(27,17)
+(27,18)
+(29,19)
+(31,20)
+(33,21)
+(34,22)
+(36,23)
+(37,24)
+(37,25)
+(38,26)
+(39,27)
+(40,28)
+(40,29)
+(41,30)
+(46,31)
+(47,32)
+(49,33)
+(49,34)
+(50,35)
+(51,36)
+(51,37)
+(53,38)
+(53,39)
+(53,40)
+(54,41)
+(55,42)
+(56,43)
+(57,44)
+(57,45)
+(58,46)
+(58,47)
+(59,48)
+(62,49)
+(62,50)
+(64,51)
+(64,52)
+(64,53)
+(64,54)
+(64,55)
+(64,56)
+(64,57)
+(64,58)
+(64,59)
+(64,60)
+(64,61)
+(64,62)
+(64,63)
+(64,64)
+QUERY TIME: 0.306 seconds
+
+real	0m0.328s
+user	0m2.377s
+sys	0m0.043s
+[PARSEC] [----------    End of output    ----------]
+[PARSEC]
+[PARSEC] BIBLIOGRAPHY
+[PARSEC]
+[PARSEC] [1] Bienia. Benchmarking Modern Multiprocessors. Ph.D. Thesis, 2011.
+[PARSEC]
+[PARSEC] Done.

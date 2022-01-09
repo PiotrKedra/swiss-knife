@@ -1,0 +1,51 @@
+[PARSEC] Benchmarks to run:  parsec.bodytrack
+
+[PARSEC] [========== Running benchmark parsec.bodytrack [1] ==========]
+[PARSEC] Deleting old run directory.
+[PARSEC] Setting up run directory.
+[PARSEC] Unpacking benchmark input 'simsmall'.
+sequenceB_1/
+sequenceB_1/BodyShapeParameters.txt
+sequenceB_1/CALIB/
+sequenceB_1/CALIB/Camera1.cal
+sequenceB_1/CALIB/Camera2.cal
+sequenceB_1/CALIB/Camera3.cal
+sequenceB_1/CALIB/Camera4.cal
+sequenceB_1/CAM1/
+sequenceB_1/CAM1/image0000.bmp
+sequenceB_1/CAM2/
+sequenceB_1/CAM2/image0000.bmp
+sequenceB_1/CAM3/
+sequenceB_1/CAM3/image0000.bmp
+sequenceB_1/CAM4/
+sequenceB_1/CAM4/image0000.bmp
+sequenceB_1/FG1/
+sequenceB_1/FG1/image0000.bmp
+sequenceB_1/FG2/
+sequenceB_1/FG2/image0000.bmp
+sequenceB_1/FG3/
+sequenceB_1/FG3/image0000.bmp
+sequenceB_1/FG4/
+sequenceB_1/FG4/image0000.bmp
+sequenceB_1/InitialPose.txt
+sequenceB_1/PoseParameters.txt
+[PARSEC] Running 'time /home/teamd/piotr/lol/swiss-knife/task3/taskD/parsec/parsec-benchmark/pkgs/apps/bodytrack/inst/amd64-linux.gcc/bin/bodytrack sequenceB_1 4 1 1000 5 0 64':
+[PARSEC] [---------- Beginning of output ----------]
+PARSEC Benchmark Suite Version 3.0-beta-20150206
+Threading with Posix Threads
+Number of threads : 64
+Using dataset : sequenceB_1/
+1000 particles with 5 annealing layers
+
+Processing frame 0
+
+real	0m0.094s
+user	0m1.133s
+sys	0m0.031s
+[PARSEC] [----------    End of output    ----------]
+[PARSEC]
+[PARSEC] BIBLIOGRAPHY
+[PARSEC]
+[PARSEC] [1] Bienia. Benchmarking Modern Multiprocessors. Ph.D. Thesis, 2011.
+[PARSEC]
+[PARSEC] Done.
