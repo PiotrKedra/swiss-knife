@@ -82,11 +82,5 @@ def generate_plot(file):
     plt.clf()
 
 
-def generate_plot_for_each_graph(plot_type: str):
-    files = ['rand' + plot_type + '.json', 'seq' + plot_type + '.json']
-
-    generate_plot(files)
-
-
 if __name__ == "__main__":
     generate_plot("results/vardepth.json")

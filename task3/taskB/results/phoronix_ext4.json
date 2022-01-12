@@ -1,0 +1,232 @@
+{
+    "title": "phoronixtestext4",
+    "last_modified": "2022-01-12 17:22:54",
+    "description": "AMD EPYC 7713P 64-Core testing with a Dell 07PXPY (2.2.4 BIOS) and Matrox G200eW3 on NixOS 21.11 via the Phoronix Test Suite.",
+    "systems": {
+        "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
+            "identifier": "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB",
+            "hardware": {
+                "Processor": "AMD EPYC 7713P 64-Core @ 2.00GHz (64 Cores \/ 128 Threads)",
+                "Motherboard": "Dell 07PXPY (2.2.4 BIOS)",
+                "Chipset": "AMD Starship\/Matisse",
+                "Memory": "512GB",
+                "Disk": "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB + 600GB AL15SEB060NY",
+                "Graphics": "Matrox G200eW3",
+                "Network": "4 x Broadcom BCM57416 NetXtreme-E Dual-Media 10G RDMA + 2 x Broadcom NetXtreme BCM5720 PCIe"
+            },
+            "software": {
+                "OS": "NixOS 21.11",
+                "Kernel": "5.10.89 (x86_64)",
+                "Compiler": "GCC 10.3.0",
+                "File-System": "zfs",
+                "Screen Resolution": "1024x768"
+            },
+            "user": "root",
+            "timestamp": "2022-01-12 16:49:31",
+            "client_version": "10.8.0",
+            "data": {
+                "disk-scheduler": "none",
+                "cpu-scaling-governor": "acpi-cpufreq performance (Boost: Enabled)",
+                "cpu-microcode": "0xa00111d",
+                "kernel-extra-details": "Transparent Huge Pages: madvise",
+                "security": "itlb_multihit: Not affected + l1tf: Not affected + mds: Not affected + meltdown: Not affected + spec_store_bypass: Mitigation of SSB disabled via prctl and seccomp + spectre_v1: Mitigation of usercopy\/swapgs barriers and __user pointer sanitization + spectre_v2: Mitigation of Full AMD retpoline IBPB: conditional IBRS_FW STIBP: always-on RSB filling + srbds: Not affected + tsx_async_abort: Not affected"
+            }
+        }
+    },
+    "results": {
+        "23f3bcd2e402020a107b6b06bdafebb7943ca11a": {
+            "identifier": "pts\/fs-mark-1.0.3",
+            "title": "FS-Mark",
+            "app_version": "3.3",
+            "arguments": "-L 20 -s 1048576 -n 1000",
+            "description": "Test: 1000 Files, 1MB Size",
+            "scale": "Files\/s",
+            "proportion": "HIB",
+            "display_format": "BAR_GRAPH",
+            "results": {
+                "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
+                    "value": 822.3,
+                    "raw_values": [
+                        777.8,
+                        810.6,
+                        873.9,
+                        733.4,
+                        813.1,
+                        1097.6,
+                        1113.6,
+                        744.1,
+                        734.4,
+                        692.8,
+                        673.4,
+                        802.7
+                    ],
+                    "test_run_times": [
+                        23.09,
+                        22.36,
+                        23.37,
+                        23.25,
+                        23.78,
+                        22.08,
+                        23.81,
+                        25.27,
+                        24.16,
+                        23.53,
+                        22.83,
+                        23.68
+                    ],
+                    "details": {
+                        "compiler-options": {
+                            "compiler-type": "CC",
+                            "compiler": "gcc",
+                            "compiler-options": ""
+                        }
+                    }
+                }
+            }
+        },
+        "8ba7462fc39f787c1cf8a7f01f8cf4a7c6b79fd3": {
+            "identifier": "pts\/fs-mark-1.0.3",
+            "title": "FS-Mark",
+            "app_version": "3.3",
+            "arguments": "-L 5 -s 1048576 -n 5000 -t 4",
+            "description": "Test: 5000 Files, 1MB Size, 4 Threads",
+            "scale": "Files\/s",
+            "proportion": "HIB",
+            "display_format": "BAR_GRAPH",
+            "results": {
+                "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
+                    "value": 1320.6,
+                    "raw_values": [
+                        1346.4,
+                        1284.3,
+                        1331.2
+                    ],
+                    "test_run_times": [
+                        78.69,
+                        80,
+                        87.67
+                    ],
+                    "details": {
+                        "compiler-options": {
+                            "compiler-type": "CC",
+                            "compiler": "gcc",
+                            "compiler-options": ""
+                        }
+                    }
+                }
+            }
+        },
+        "244d3fc1cabe4e11a31ff26c5cfecf4d27223882": {
+            "identifier": "pts\/fs-mark-1.0.3",
+            "title": "FS-Mark",
+            "app_version": "3.3",
+            "arguments": "-L 10 -s 1048576 -n 4000 -D 32",
+            "description": "Test: 4000 Files, 32 Sub Dirs, 1MB Size",
+            "scale": "Files\/s",
+            "proportion": "HIB",
+            "display_format": "BAR_GRAPH",
+            "results": {
+                "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
+                    "value": 884.4,
+                    "raw_values": [
+                        754.6,
+                        969.3,
+                        1009.8,
+                        900.8,
+                        849,
+                        893.9,
+                        978.7,
+                        697.2,
+                        967.4,
+                        873.7,
+                        924,
+                        859.6,
+                        842.3,
+                        878,
+                        867.2
+                    ],
+                    "test_run_times": [
+                        49.1,
+                        47.58,
+                        45.16,
+                        42.48,
+                        45.47,
+                        45.79,
+                        43.6,
+                        45.25,
+                        47.29,
+                        48.3,
+                        44.46,
+                        44.28,
+                        45.86,
+                        45.73,
+                        44.01
+                    ],
+                    "details": {
+                        "compiler-options": {
+                            "compiler-type": "CC",
+                            "compiler": "gcc",
+                            "compiler-options": ""
+                        }
+                    }
+                }
+            }
+        },
+        "6d53ac940f2ace431e2b21511f99af5fbd03c921": {
+            "identifier": "pts\/fs-mark-1.0.3",
+            "title": "FS-Mark",
+            "app_version": "3.3",
+            "arguments": "-L 100 -s 1048576 -n 1000 -S 0",
+            "description": "Test: 1000 Files, 1MB Size, No Sync\/FSync",
+            "scale": "Files\/s",
+            "proportion": "HIB",
+            "display_format": "BAR_GRAPH",
+            "results": {
+                "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
+                    "value": 2919.2,
+                    "raw_values": [
+                        2777.9,
+                        2865.1,
+                        2553.6,
+                        2968,
+                        3097.8,
+                        2963.9,
+                        2966,
+                        2970.1,
+                        2983.3,
+                        3024.9,
+                        2971.6,
+                        2956.4,
+                        2950.4,
+                        2974.2,
+                        2764.7
+                    ],
+                    "test_run_times": [
+                        39.4,
+                        46.84,
+                        39.79,
+                        38.36,
+                        38.37,
+                        38.61,
+                        38.62,
+                        38.58,
+                        38.76,
+                        38.32,
+                        38.94,
+                        38.66,
+                        38.93,
+                        39.02,
+                        40.61
+                    ],
+                    "details": {
+                        "compiler-options": {
+                            "compiler-type": "CC",
+                            "compiler": "gcc",
+                            "compiler-options": ""
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
