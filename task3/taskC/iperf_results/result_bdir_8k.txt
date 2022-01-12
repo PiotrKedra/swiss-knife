@@ -1,0 +1,32 @@
+Connecting to host fe80::e63d:1aff:fe72:f0%swissknife1, port 5201
+[  5] local fe80::e63d:1aff:fe72:f1 port 47148 connected to fe80::e63d:1aff:fe72:f0 port 5201
+[  7] local fe80::e63d:1aff:fe72:f1 port 47150 connected to fe80::e63d:1aff:fe72:f0 port 5201
+[ ID][Role] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5][TX-C]   0.00-1.00   sec   124 MBytes  1.04 Gbits/sec   14   8.37 KBytes       
+[  7][RX-C]   0.00-1.00   sec   100 MBytes   839 Mbits/sec                  
+[  5][TX-C]   1.00-2.00   sec   119 MBytes   997 Mbits/sec   37   6.97 KBytes       
+[  7][RX-C]   1.00-2.00   sec  94.4 MBytes   792 Mbits/sec                  
+[  5][TX-C]   2.00-3.00   sec   121 MBytes  1.01 Gbits/sec   27   8.37 KBytes       
+[  7][RX-C]   2.00-3.00   sec  91.1 MBytes   764 Mbits/sec                  
+[  5][TX-C]   3.00-4.00   sec   126 MBytes  1.06 Gbits/sec   10   8.37 KBytes       
+[  7][RX-C]   3.00-4.00   sec  94.8 MBytes   795 Mbits/sec                  
+[  5][TX-C]   4.00-5.00   sec   128 MBytes  1.08 Gbits/sec    0   8.37 KBytes       
+[  7][RX-C]   4.00-5.00   sec  97.3 MBytes   817 Mbits/sec                  
+[  5][TX-C]   5.00-6.00   sec   121 MBytes  1.02 Gbits/sec    4   8.37 KBytes       
+[  7][RX-C]   5.00-6.00   sec  99.4 MBytes   834 Mbits/sec                  
+[  5][TX-C]   6.00-7.00   sec   124 MBytes  1.04 Gbits/sec    0   8.37 KBytes       
+[  7][RX-C]   6.00-7.00   sec  96.7 MBytes   811 Mbits/sec                  
+[  5][TX-C]   7.00-8.00   sec   124 MBytes  1.04 Gbits/sec    4   8.37 KBytes       
+[  7][RX-C]   7.00-8.00   sec  95.6 MBytes   802 Mbits/sec                  
+[  5][TX-C]   8.00-9.00   sec   127 MBytes  1.06 Gbits/sec    8   6.97 KBytes       
+[  7][RX-C]   8.00-9.00   sec  95.8 MBytes   804 Mbits/sec                  
+[  5][TX-C]   9.00-10.00  sec   127 MBytes  1.07 Gbits/sec    6   2.79 KBytes       
+[  7][RX-C]   9.00-10.00  sec  94.4 MBytes   792 Mbits/sec                  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID][Role] Interval           Transfer     Bitrate         Retr
+[  5][TX-C]   0.00-10.00  sec  1.21 GBytes  1.04 Gbits/sec  110             sender
+[  5][TX-C]   0.00-10.00  sec  1.21 GBytes  1.04 Gbits/sec                  receiver
+[  7][RX-C]   0.00-10.00  sec   960 MBytes   805 Mbits/sec   97             sender
+[  7][RX-C]   0.00-10.00  sec   960 MBytes   805 Mbits/sec                  receiver
+
+iperf Done.

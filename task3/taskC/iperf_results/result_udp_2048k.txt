@@ -1,0 +1,19 @@
+Connecting to host fe80::e63d:1aff:fe72:f0%swissknife1, port 5201
+[  5] local fe80::e63d:1aff:fe72:f1 port 32882 connected to fe80::e63d:1aff:fe72:f0 port 5201
+[ ID] Interval           Transfer     Bitrate         Total Datagrams
+[  5]   0.00-1.00   sec   996 MBytes  8.35 Gbits/sec  731100  
+[  5]   1.00-2.00   sec  1014 MBytes  8.50 Gbits/sec  744340  
+[  5]   2.00-3.00   sec   985 MBytes  8.27 Gbits/sec  723530  
+[  5]   3.00-4.00   sec   998 MBytes  8.37 Gbits/sec  732660  
+[  5]   4.00-5.00   sec   987 MBytes  8.28 Gbits/sec  724810  
+[  5]   5.00-6.00   sec   989 MBytes  8.30 Gbits/sec  726370  
+[  5]   6.00-7.00   sec  1013 MBytes  8.50 Gbits/sec  743700  
+[  5]   7.00-8.00   sec   962 MBytes  8.07 Gbits/sec  706290  
+[  5]   8.00-9.00   sec   997 MBytes  8.37 Gbits/sec  732460  
+[  5]   9.00-10.00  sec  1007 MBytes  8.45 Gbits/sec  739670  
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Jitter    Lost/Total Datagrams
+[  5]   0.00-10.00  sec  9.72 GBytes  8.35 Gbits/sec  0.000 ms  0/7304930 (0%)  sender
+[  5]   0.00-10.20  sec  1.08 GBytes   908 Mbits/sec  0.002 ms  6493497/7304930 (89%)  receiver
+
+iperf Done.

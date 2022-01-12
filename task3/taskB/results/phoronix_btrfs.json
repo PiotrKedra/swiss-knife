@@ -1,6 +1,6 @@
 {
-    "title": "phoronix_ext4",
-    "last_modified": "2022-01-11 11:20:52",
+    "title": "phoronix_btrfs",
+    "last_modified": "2022-01-11 21:13:55",
     "description": "AMD EPYC 7713P 64-Core testing with a Dell 07PXPY (2.2.4 BIOS) and Matrox G200eW3 on NixOS 21.11 via the Phoronix Test Suite.",
     "systems": {
         "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
@@ -22,84 +22,18 @@
                 "Screen Resolution": "1024x768"
             },
             "user": "root",
-            "timestamp": "2022-01-06 20:05:51",
+            "timestamp": "2022-01-11 21:04:27",
             "client_version": "10.8.0",
             "data": {
                 "disk-scheduler": "none",
                 "cpu-scaling-governor": "acpi-cpufreq performance (Boost: Enabled)",
                 "cpu-microcode": "0xa00111d",
                 "kernel-extra-details": "Transparent Huge Pages: madvise",
-                "python": "Python 2.7.18 + Python 3.9.6",
                 "security": "itlb_multihit: Not affected + l1tf: Not affected + mds: Not affected + meltdown: Not affected + spec_store_bypass: Mitigation of SSB disabled via prctl and seccomp + spectre_v1: Mitigation of usercopy\/swapgs barriers and __user pointer sanitization + spectre_v2: Mitigation of Full AMD retpoline IBPB: conditional IBRS_FW STIBP: always-on RSB filling + srbds: Not affected + tsx_async_abort: Not affected"
             }
         }
     },
     "results": {
-        "10c32bac040187058a47fcb10f3669610e9a51e3": {
-            "identifier": "pts\/compilebench-1.0.3",
-            "title": "Compile Bench",
-            "app_version": "0.6",
-            "arguments": "COMPILE",
-            "description": "Test: Compile",
-            "scale": "MB\/s",
-            "proportion": "HIB",
-            "display_format": "BAR_GRAPH",
-            "results": {
-                "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
-                    "value": 2489.04,
-                    "raw_values": [
-                        2490.53,
-                        2514.56,
-                        2462.02
-                    ],
-                    "test_run_times": [
-                        31.47,
-                        29.27,
-                        29.8
-                    ]
-                }
-            }
-        },
-        "6538b9dddd169903ef80d992acbc43d31e944527": {
-            "identifier": "pts\/compilebench-1.0.3",
-            "title": "Compile Bench",
-            "app_version": "0.6",
-            "arguments": "INITIAL_CREATE",
-            "description": "Test: Initial Create",
-            "scale": "MB\/s",
-            "proportion": "HIB",
-            "display_format": "BAR_GRAPH",
-            "results": {
-                "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
-                    "value": 302.62,
-                    "raw_values": [
-                        297.27,
-                        315.46,
-                        295.12
-                    ]
-                }
-            }
-        },
-        "a09e316a3033622e3536e1a09ddfea6f05b4226b": {
-            "identifier": "pts\/compilebench-1.0.3",
-            "title": "Compile Bench",
-            "app_version": "0.6",
-            "arguments": "READ_COMPILED_TREE",
-            "description": "Test: Read Compiled Tree",
-            "scale": "MB\/s",
-            "proportion": "HIB",
-            "display_format": "BAR_GRAPH",
-            "results": {
-                "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
-                    "value": 1626.6,
-                    "raw_values": [
-                        1634.84,
-                        1611.66,
-                        1633.29
-                    ]
-                }
-            }
-        },
         "17a556e2ce210048fbeab84bcb85e15b336d4788": {
             "identifier": "pts\/unpack-linux-1.1.1",
             "title": "Unpacking The Linux Kernel",
@@ -109,18 +43,50 @@
             "display_format": "BAR_GRAPH",
             "results": {
                 "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
-                    "value": 5.373,
+                    "value": 5.713,
                     "raw_values": [
-                        5.365,
-                        5.426,
-                        5.418,
-                        5.282
+                        6.12,
+                        5.49,
+                        5.544,
+                        5.512,
+                        5.508,
+                        5.481,
+                        5.604,
+                        5.685,
+                        5.574,
+                        5.473,
+                        5.45,
+                        5.464,
+                        5.961,
+                        5.288,
+                        6.085,
+                        5.512,
+                        6.118,
+                        6.165,
+                        6.14,
+                        6.087
                     ],
                     "test_run_times": [
-                        5.37,
-                        5.43,
-                        5.42,
-                        5.28
+                        6.12,
+                        5.49,
+                        5.54,
+                        5.51,
+                        5.51,
+                        5.48,
+                        5.6,
+                        5.68,
+                        5.57,
+                        5.47,
+                        5.45,
+                        5.46,
+                        5.96,
+                        5.29,
+                        6.08,
+                        5.51,
+                        6.12,
+                        6.16,
+                        6.14,
+                        6.09
                     ]
                 }
             }
@@ -135,16 +101,16 @@
             "display_format": "BAR_GRAPH",
             "results": {
                 "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
-                    "value": 5815,
+                    "value": 5515,
                     "raw_values": [
-                        5952,
-                        5681,
-                        5813
+                        5555,
+                        5555,
+                        5434
                     ],
                     "test_run_times": [
-                        42.72,
-                        43.37,
-                        43.05
+                        45.38,
+                        45.22,
+                        45.38
                     ],
                     "details": {
                         "compiler-options": {
@@ -165,16 +131,16 @@
             "display_format": "BAR_GRAPH",
             "results": {
                 "4 x 1600GB Dell Ent NVMe AGN MU AIC 1.6TB": {
-                    "value": 39.288,
+                    "value": 47.17,
                     "raw_values": [
-                        39.313,
-                        39.267,
-                        39.284
+                        46.692,
+                        47.215,
+                        47.604
                     ],
                     "test_run_times": [
-                        39.31,
-                        39.27,
-                        39.28
+                        46.69,
+                        47.21,
+                        47.6
                     ]
                 }
             }
