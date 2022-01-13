@@ -30,3 +30,12 @@ The results will be generated in ```./results folder``` with the figures by runn
 ```console
 python3 plot.py
 ```
+
+# Pre-generated plots
+
+![Alt text](results/blackscholes.png?raw=true "Black-scholes application")
+
+![Alt text](results/bodytrack.png?raw=true "Body track application")
+
+![Alt text](results/ferret.png?raw=true "Ferret application")
+
