@@ -71,7 +71,7 @@ def generate_plot(file):
         txt = label[0]
         plt.plot(x_only, y_only, label=txt)
 
-    plt.title('Throughput for variable iodepth')
+    plt.title('FS-Mark tests Phoronix')
     plt.xlabel('I/O depth')
     plt.ylabel('Throughput in MBit/s')
     plt.legend()
