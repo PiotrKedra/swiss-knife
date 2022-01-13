@@ -17,7 +17,7 @@
 
 ### Run evaluation
 
-The first step is to get the source code for the task 3 from our repository:
+The first step is to get the source code for task 3 from our repository:
 
 ```console
 $ git clone https://github.com/PiotrKedra/swiss-knife.git
