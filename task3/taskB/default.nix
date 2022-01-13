@@ -6,7 +6,13 @@ let mvn = pkgs.maven.override { jdk = pkgs.jdk; };
   ]);
 in pkgs.mkShell {
   buildInputs = [
+                  pkgs.parted
+                  pkgs.php
                   pkgs.gcc
+                  pkgs.fio
+                  pkgs.glibc
+                  pkgs.gnumake
+                  pkgs.crc32c
                   python-with-my-packages
                   ];
 }
