@@ -115,7 +115,7 @@ def start_services(nix_shell: str) -> None:
     run([
         nix_shell,
         "--run",
-        f"docker run --rm -d -p {port}:3306 -v $(pwd)/explore/write_prepared/my.cnf:/etc/mysql/conf.d/my.cnf "
+        f"docker run --rm -d -p {port}:3306 -v $(pwd)/explore/my.cnf:/etc/mysql/conf.d/my.cnf "
         f"--name teamd-myrocks{hashed_container} -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=root -e MYSQL_DATABASE=sbt "
         f"teamd-myrocks"
     ])
@@ -214,16 +214,15 @@ def remove_folder(parent: str, child: str) -> None:
 def execute_experiments(nix_shell: str, databases: List[str]) -> None:
     benchmarks = create_folder(ROOT, f"basic/benchmarks")
 
-    if 1 == 2:
-        create_folder(ROOT, "basic/results")
-        for db in databases:
-            create_folder(benchmarks, db)
-            evaluate_basic(nix_shell=nix_shell, db=db)
+    create_folder(ROOT, "basic/results")
+    for db in databases:
+        create_folder(benchmarks, db)
+        evaluate_basic(nix_shell=nix_shell, db=db)
 
-            info(f"Create figure for database {db} inside folder ./basic/results/{db}...")
-            run([
-                nix_shell, "--run", f"cd basic && python3 generate_plots.py"
-            ])
+        info(f"Create figure for database {db} inside folder ./basic/results/{db}...")
+        run([
+            nix_shell, "--run", f"cd basic && python3 generate_plots.py"
+        ])
 
     benchmarks = create_folder(ROOT, f"explore/benchmarks")
     evaluate_explore(nix_shell=nix_shell, write_policies=["committed", "prepared"])

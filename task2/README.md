@@ -25,7 +25,7 @@ be patient until the whole process will finish.
 
 You might grab a coffee...since the script needs about <b>32</b> minutes to test all servers.
 
-Run the evaluations with: 
+Run the evaluations with:
 
 ```console
 $ cd task2
