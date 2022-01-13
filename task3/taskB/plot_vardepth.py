@@ -10,7 +10,7 @@ def convert_job_name_to_graph_name(js: str):
         job_name = js_list[3]
     else:
         job_name = js_list[2]
-    return js_list[0] + ' ' + js_list[1] + ' ' + job_name
+    return job_name
 
 
 def read_from_file(file_name: str):
@@ -31,9 +31,9 @@ def read_from_file(file_name: str):
             data_point = (int(jobs['job options']['iodepth']), read['bw'] / 1024,
                           convert_job_name_to_graph_name(jobs['job options']['name']))
             if 'btrfs' in jobs['jobname']:
-                btrfs_read.insert(0, data_point) if data_point[0] == 2000 else btrfs_read.append(data_point)
+                btrfs_read.append(data_point)
             if 'ext4' in jobs['jobname']:
-                ext4_read.insert(0, data_point) if data_point[0] == 2000 else ext4_read.append(data_point)
+                ext4_read.append(data_point)
 
         if not write['bw'] == 0:
             data_point = (int(jobs['job options']['iodepth']), write['bw'] / 1024,
@@ -72,7 +72,7 @@ def generate_plot(file):
         plt.plot(x_only, y_only, label=txt)
 
     plt.title('Throughput for variable iodepth')
-    plt.xlabel('Io depth')
+    plt.xlabel('I/O depth')
     plt.ylabel('Throughput in MBit/s')
     plt.legend()
     plt.savefig("results/graphs/throughput_iodepth.png")
