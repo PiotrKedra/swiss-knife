@@ -43,7 +43,7 @@ The results will be generated in ```./results folder``` with the figures by runn
 python3 plot.py
 ```
 
-# Generated plots
+## Generated plots
 
 ![Alt text](results/blackscholes.png?raw=true "Black-scholes application")
 
