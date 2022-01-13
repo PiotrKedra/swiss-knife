@@ -9,7 +9,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # styling of plots
 # partially taken from: https://github.com/Mic92/rkt-io (21.11.2021, 18:00 (UTC))
-sns.set(rc={"figure.figsize": (3, 5)})
+sns.set(rc={"figure.figsize": (5, 5)})
 sns.set_style("whitegrid")
 sns.set_style("ticks", {"xtick.major.size": 7, "ytick.major.size": 7})
 sns.set_context("paper", rc={"font.size": 6, "axes.titlesize": 12, "axes.labelsize": 12})
