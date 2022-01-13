@@ -41,7 +41,7 @@ def read_from_file(file_name: str):
         read = jobs['read']
         write = jobs['write']
         if not read['bw'] == 0:
-            data_point = (convert_bs_to_number(jobs['job options']['bs']), read['bw'] / 1024,
+            data_point = (convert_bs_to_number(jobs['job options']['bs']), read['bw_bytes'] / pow(2,20),
                           convert_job_name_to_graph_name(jobs['job options']['name']))
             if 'btrfs' in jobs['jobname']:
                 btrfs_read.append(data_point)
@@ -49,7 +49,7 @@ def read_from_file(file_name: str):
                 ext4_read.append(data_point)
 
         if not write['bw'] == 0:
-            data_point = (convert_bs_to_number(jobs['job options']['bs']), write['bw'] / 1024,
+            data_point = (convert_bs_to_number(jobs['job options']['bs']), write['bw_bytes'] / pow(2,20),
                           convert_job_name_to_graph_name(jobs['job options']['name']))
             if 'btrfs' in jobs['jobname']:
                 btrfs_write.append(data_point)
