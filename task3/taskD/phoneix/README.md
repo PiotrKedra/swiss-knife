@@ -25,4 +25,3 @@ python3 plot.py
 ![Alt text](results/word_count.png?raw=true "Word count application")
 
 ![Alt text](results/matrix.png?raw=true "Matrix multiplication application")
-
