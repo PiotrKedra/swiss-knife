@@ -38,22 +38,22 @@ def dict_raise_on_duplicates(ordered_pairs):
     return d
 
 def get_bandwidth_data_for_bdir():
-    result_tx_sum_rx = []
-    # result_rx = []
+    result_tx = []
+    result_rx = []
     for window_size in WINDOWS_SIZES:
         file_name = 'iperf_results/result_bdir_' + str(window_size) + 'k.json'
         f = open(file_name)
         data = json.load(f, object_pairs_hook=dict_raise_on_duplicates) 
 
-        result_tx_sum_rx.append((float(data['end']['sum_sent'][0]['bits_per_second']) + float(data['end']['sum_sent'][1]['bits_per_second']))/1000000.)
-        # result_rx.append(float(data['end']['sum_sent'][1]['bits_per_second'])/1000000.)
+        result_tx.append(float(data['end']['sum_sent'][0]['bits_per_second'])/1000000.)
+        result_rx.append(float(data['end']['sum_sent'][1]['bits_per_second'])/1000000.)
 
-    # return {
-    #     'tx-c': result_tx,
-    #     'rx-c': result_rx
-    # }
+    return {
+         'tx-c': result_tx,
+         'rx-c': result_rx
+     }
 
-    return result_tx_sum_rx
+   # return result_tx_sum_rx
 
 
 def generate_bandwidth_by_windows_size_figure():
@@ -67,8 +67,9 @@ def generate_bandwidth_by_windows_size_figure():
 
     
     bdir_data = get_bandwidth_data_for_bdir()
-    plt.plot(WINDOWS_SIZES, bdir_data, label='bdir sum(TX-C, RX-C)')
-    # plt.plot(WINDOWS_SIZES, bdir_data['rx-c'], label='bdir RX-C')
+    #plt.plot(WINDOWS_SIZES, bdir_data, label='bdir sum(TX-C, RX-C)')
+    plt.plot(WINDOWS_SIZES, bdir_data['rx-c'], label='bdir RX-C')
+    plt.plot(WINDOWS_SIZES, bdir_data['tx-c'], label='bdir TX-C')
 
 
     plt.legend(loc="lower right")
@@ -85,8 +86,7 @@ def get_data_for_udp():
         file_name = 'iperf_results/result_udp_' + str(udp_data) + '.json'
         f = open(file_name)
         data = json.load(f) 
-        
-        bandwidth.append(float(data['end']['sum']['bits_per_second'])/1000000.)
+        bandwidth.append(float(udp_data))
         lost_percent.append(int(data['end']['sum']['lost_percent']))
     
     return {
@@ -113,7 +113,7 @@ def get_data_for_parallel():
     for parallel_conn in PARALLEL_CONN:
         file_name = 'iperf_results/result_parallel_' + str(parallel_conn) + '.json'
         f = open(file_name)
-        data = json.load(f) 
+        data = json.load(f)
         
         bandwidth.append(float(data['end']['sum_sent']['bits_per_second'])/1000000.)
         retransmits.append(int(data['end']['sum_sent']['retransmits']))
