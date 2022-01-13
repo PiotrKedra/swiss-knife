@@ -18,7 +18,6 @@ $ python3 plot.py
 ```
 
 The figures will be saved as```./png``` files in the```./iperf_results```folder.
-=======
 
 Then execute the following:
 
