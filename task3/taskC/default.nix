@@ -6,6 +6,7 @@ let mvn = pkgs.maven.override { jdk = pkgs.jdk; };
   ]);
 in pkgs.mkShell {
   buildInputs = [
+                  pkgs.iperf
                   python-with-my-packages
                   ];
 }
