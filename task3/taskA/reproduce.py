@@ -192,7 +192,7 @@ def evaluate_explore(nix_shell: str, write_policies: List[str]) -> None:
             "--run",
             f"cd explore/sysbench-tpcc && ./tpcc.lua --mysql-host=127.0.0.1 --mysql-port={port} --mysql-user=root "
             f"--mysql-password=secret --mysql-db=sbt --time=300 --threads=64 --report-interval=1 --tables=10 --scale=10 "
-            f"--db-driver=mysql run > ./../benchmarks/output_run_{policy}.txt"
+            f"--db-driver=mysql run 2> ./../benchmarks/output_run_{policy}.txt"
         ])
 
 
