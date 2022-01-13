@@ -73,7 +73,7 @@ def generate_bandwidth_by_windows_size_figure():
 
 
     plt.legend(loc="lower right")
-    plt.xlabel('window size') 
+    plt.xlabel('window size in KB')
     plt.ylabel('bandwidth (Mbit/s)') 
     plt.title('window size by bandwidth figure') 
     plt.savefig('iperf_results/fig_window_size_by_bandwidth.png', dpi=100)
