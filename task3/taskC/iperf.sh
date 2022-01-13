@@ -33,13 +33,13 @@ iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 256K -R -J --logfile iperf_resul
 iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 512K -R -J --logfile iperf_results/result_reverse_512k.json
 
 # Parallel mode
-iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 1 -J --logfile iperf_results/result_parallel_1.json
-iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 2 -J --logfile iperf_results/result_parallel_2.json
-iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4k -P 4 -J --logfile iperf_results/result_parallel_4.json
-iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 8 -J --logfile iperf_results/result_parallel_8.json
-iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 16 -J --logfile iperf_results/result_parallel_16.json
-iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 32 -J --logfile iperf_results/result_parallel_32.json
-iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 64 -J --logfile iperf_results/result_parallel_64.json
+iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 128K -P 1 -J --logfile iperf_results/result_parallel_1.json
+iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 128K -P 2 -J --logfile iperf_results/result_parallel_2.json
+iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 128k -P 4 -J --logfile iperf_results/result_parallel_4.json
+iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 128K -P 8 -J --logfile iperf_results/result_parallel_8.json
+iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 128K -P 16 -J --logfile iperf_results/result_parallel_16.json
+iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 128K -P 32 -J --logfile iperf_results/result_parallel_32.json
+iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 128K -P 64 -J --logfile iperf_results/result_parallel_64.json
 
 # Bidirectional mode
 iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 2K --bidir -J --logfile iperf_results/result_bdir_2k.json
