@@ -41,7 +41,7 @@ iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 16 -J --logfile iperf_resu
 iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 32 -J --logfile iperf_results/result_parallel_32.json
 iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K -P 64 -J --logfile iperf_results/result_parallel_64.json
 
-# Bidrectional mode
+# Bidirectional mode
 iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 2K --bidir -J --logfile iperf_results/result_bdir_2k.json
 iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 4K --bidir -J --logfile iperf_results/result_bdir_4k.json
 iperf -c fe80::e63d:1aff:fe72:f0%swissknife1 -w 8K --bidir -J --logfile iperf_results/result_bdir_8k.json
