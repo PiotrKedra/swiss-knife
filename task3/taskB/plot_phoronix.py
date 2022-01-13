@@ -56,7 +56,7 @@ def generate_plot(files):
     autolabel(rects1)
     autolabel(rects2)
 
-    plt.title('Throughput for variable iodepth')
+    plt.title('FS-Mark Phoronix')
     plt.savefig("results/graphs/throughput_phoronix.png")
 
 
