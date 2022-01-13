@@ -22,7 +22,7 @@ def read_from_file(file_name: str):
 def get_data_for_app(files):
     data = []
     for file_name in files:
-        data.append(read_from_file("results/" + file_name))
+        data.append(read_from_file("results/phoronix/" + file_name))
 
     return data
 

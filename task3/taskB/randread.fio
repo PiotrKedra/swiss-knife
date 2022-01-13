@@ -40,7 +40,7 @@ bs=4k
 [job6]
 stonewall
 name=rand_read_ext4_bs4k
-filename=/mnt/teamd-ext4
+directory=/mnt/teamd-ext4
 bs=4k
 
 [job7]

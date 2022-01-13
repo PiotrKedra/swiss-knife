@@ -4,8 +4,8 @@ overwrite=1
 rw=rw
 size=1G
 ioengine=libaio
-direct=1
-iodepth=16
+direct=0
+iodepth=1
 
 [job1]
 stonewall

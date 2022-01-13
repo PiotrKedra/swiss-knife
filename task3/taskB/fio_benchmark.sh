@@ -1,3 +1,5 @@
+sudo rm results/*.json
+
 sudo fio seqread.fio --output-format=json --output=results/seqread.json
 sudo fio seqwrite.fio --output-format=json --output=results/seqwrite.json
 sudo fio randread.fio --output-format=json --output=results/randread.json
