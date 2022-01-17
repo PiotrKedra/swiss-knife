@@ -22,7 +22,7 @@ stonewall
 name=seq_rw_direct_ext4_bs4k
 bs=4k
 
-[job5]
+[job4]
 stonewall
 name=seq_rw_direct_ext4_bs8k
 bs=8k

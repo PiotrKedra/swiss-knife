@@ -2,7 +2,7 @@ sudo rm results/*.json
 sudo mkfs.ext4 /dev/mapper/swissknife-teamd
 sudo mount /dev/mapper/swissknife-teamd /mnt/teamd-ext4
 
-sudo fio seqread_btrfs.fio --output-format=json --output=results/seqread_ext4.json
+sudo fio seqread.fio --output-format=json --output=results/seqread_ext4.json
 sudo fio seqwrite.fio --output-format=json --output=results/seqwrite_ext4.json
 sudo fio randread.fio --output-format=json --output=results/randread_ext4.json
 sudo fio randreadwrite.fio --output-format=json --output=results/randreadwrite_ext4.json

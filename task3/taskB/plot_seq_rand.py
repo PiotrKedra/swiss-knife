@@ -114,7 +114,7 @@ def generate_plot_for_each_graph(plot_type: str):
 
 
 if __name__ == "__main__":
-    plot_types = ["read", "write", "readwrite"]
+    plot_types = ["read"]
 
     for plot_type in plot_types:
         generate_plot_for_each_graph(plot_type)
