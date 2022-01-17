@@ -1,3 +1,4 @@
+sudo rm iperf_results/*.json
 iperf -s --bind fe80::e63d:1aff:fe72:f0%swissknife0&
 
 (

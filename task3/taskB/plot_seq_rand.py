@@ -26,10 +26,7 @@ def convert_job_name_to_graph_name(js: str):
     return js_list[0] + ' ' + js_list[1] + ' ' + job_name
 
 
-def read_from_file(file_name: str):
-    my_file = open(file_name)
-    my_dict = json.load(my_file)
-
+def read_from_file(file_name_tuple):
     btrfs_read = []
     btrfs_write = []
     ext4_read = []
@@ -37,24 +34,28 @@ def read_from_file(file_name: str):
 
     result = []
 
-    for jobs in my_dict['jobs']:
-        read = jobs['read']
-        write = jobs['write']
-        if not read['bw'] == 0:
-            data_point = (convert_bs_to_number(jobs['job options']['bs']), read['bw_bytes'] / pow(2,20),
-                          convert_job_name_to_graph_name(jobs['job options']['name']))
-            if 'btrfs' in jobs['jobname']:
-                btrfs_read.append(data_point)
-            if 'ext4' in jobs['jobname']:
-                ext4_read.append(data_point)
+    for file_name in file_name_tuple:
+        my_file = open(file_name)
+        my_dict = json.load(my_file)
 
-        if not write['bw'] == 0:
-            data_point = (convert_bs_to_number(jobs['job options']['bs']), write['bw_bytes'] / pow(2,20),
+        for jobs in my_dict['jobs']:
+            read = jobs['read']
+            write = jobs['write']
+            if not read['bw'] == 0:
+                data_point = (convert_bs_to_number(jobs['job options']['bs']), read['bw_bytes'] / pow(2,20),
                           convert_job_name_to_graph_name(jobs['job options']['name']))
-            if 'btrfs' in jobs['jobname']:
-                btrfs_write.append(data_point)
-            if 'ext4' in jobs['jobname']:
-                ext4_write.append(data_point)
+                if 'btrfs' in jobs['jobname']:
+                    btrfs_read.append(data_point)
+                if 'ext4' in jobs['jobname']:
+                    ext4_read.append(data_point)
+
+            if not write['bw'] == 0:
+                data_point = (convert_bs_to_number(jobs['job options']['bs']), write['bw_bytes'] / pow(2,20),
+                          convert_job_name_to_graph_name(jobs['job options']['name']))
+                if 'btrfs' in jobs['jobname']:
+                    btrfs_write.append(data_point)
+                if 'ext4' in jobs['jobname']:
+                    ext4_write.append(data_point)
     if ext4_read:
         result.append(ext4_read)
     if ext4_write and not ext4_read:
@@ -66,11 +67,20 @@ def read_from_file(file_name: str):
 
     return result
 
+def pairwise(it):
+    it = iter(it)
+    while True:
+        try:
+            yield next(it), next(it)
+        except StopIteration:
+            # no more elements in the iterator
+            return
+
 
 def get_data_for_app(files):
     data = []
-    for file_name in files:
-        data.append(read_from_file("results/" + file_name))
+    for file_name1, file_name2 in pairwise(files):
+        data.append(read_from_file(["results/" + file_name1, "results/" + file_name2]))
 
     return data
 
@@ -98,7 +108,7 @@ def generate_plot(files, operation):
 
 
 def generate_plot_for_each_graph(plot_type: str):
-    files = ['rand' + plot_type + '.json', 'seq' + plot_type + '.json']
+    files = ['rand' + plot_type + '_ext4.json', 'rand' + plot_type + '_btrfs.json' , 'seq' + plot_type + '_ext4.json','seq' + plot_type + '_btrfs.json']
 
     generate_plot(files, plot_type)
 

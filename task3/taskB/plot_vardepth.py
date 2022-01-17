@@ -14,9 +14,6 @@ def convert_job_name_to_graph_name(js: str):
 
 
 def read_from_file(file_name: str):
-    my_file = open(file_name)
-    my_dict = json.load(my_file)
-
     btrfs_read = []
     btrfs_write = []
     ext4_read = []
@@ -24,24 +21,30 @@ def read_from_file(file_name: str):
 
     result = []
 
-    for jobs in my_dict['jobs']:
-        read = jobs['read']
-        write = jobs['write']
-        if not read['bw'] == 0:
-            data_point = (int(jobs['job options']['iodepth']), read['bw'] / 1024,
-                          convert_job_name_to_graph_name(jobs['job options']['name']))
-            if 'btrfs' in jobs['jobname']:
-                btrfs_read.append(data_point)
-            if 'ext4' in jobs['jobname']:
-                ext4_read.append(data_point)
+    for file_name in file_name_tuple:
+        my_file = open(file_name)
+        my_dict = json.load(my_file)
 
-        if not write['bw'] == 0:
-            data_point = (int(jobs['job options']['iodepth']), write['bw'] / 1024,
+
+
+        for jobs in my_dict['jobs']:
+            read = jobs['read']
+            write = jobs['write']
+            if not read['bw'] == 0:
+                data_point = (int(jobs['job options']['iodepth']), read['bw'] / 1024,
                           convert_job_name_to_graph_name(jobs['job options']['name']))
-            if 'btrfs' in jobs['jobname']:
-                btrfs_write.insert(0, data_point) if data_point[0] == 2000 else btrfs_write.append(data_point)
-            if 'ext4' in jobs['jobname']:
-                ext4_write.insert(0, data_point) if data_point[0] == 2000 else ext4_write.append(data_point)
+                if 'btrfs' in jobs['jobname']:
+                    btrfs_read.append(data_point)
+                if 'ext4' in jobs['jobname']:
+                    ext4_read.append(data_point)
+
+            if not write['bw'] == 0:
+                data_point = (int(jobs['job options']['iodepth']), write['bw'] / 1024,
+                          convert_job_name_to_graph_name(jobs['job options']['name']))
+                if 'btrfs' in jobs['jobname']:
+                    btrfs_write.insert(0, data_point) if data_point[0] == 2000 else btrfs_write.append(data_point)
+                if 'ext4' in jobs['jobname']:
+                    ext4_write.insert(0, data_point) if data_point[0] == 2000 else ext4_write.append(data_point)
 
     if ext4_read:
         result.append(ext4_read)
@@ -63,7 +66,7 @@ def get_data_for_app(files):
     return data
 
 
-def generate_plot(file):
+def generate_plot(files):
     grouped_data = read_from_file(file)
 
     for result_data in grouped_data:
@@ -83,4 +86,4 @@ def generate_plot(file):
 
 
 if __name__ == "__main__":
-    generate_plot("results/vardepth.json")
+    generate_plot(["results/vardepth_btrfs.json", "results/vardepth_ext4.json"])

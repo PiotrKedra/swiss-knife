@@ -6,52 +6,45 @@ size=1G
 ioengine=libaio
 direct=0
 iodepth=1
+directory=/mnt/teamd-ext4
 
 [job1]
 stonewall
 name=seq_read_btrfs_bs1k
-directory=/mnt/teamd-btrfs
 bs=1k
 
 [job2]
 stonewall
 name=seq_read_ext4_bs4k
-directory=/mnt/teamd-ext4
 bs=1k
 
 [job3]
 stonewall
 name=seq_read_btrfs_bs2k
-directory=/mnt/teamd-btrfs
 bs=2k
 
 [job4]
 stonewall
 name=seq_read_ext4_bs2k
-directory=/mnt/teamd-ext4
 bs=2k
 
 [job5]
 stonewall
 name=seq_read_btrfs_bs4k
-directory=/mnt/teamd-btrfs
 bs=4k
 
 [job6]
 stonewall
 name=seq_read_ext4_bs4k
-directory=/mnt/teamd-ext4
 bs=4k
 
 [job7]
 stonewall
 name=seq_read_btrfs_bs8k
-directory=/mnt/teamd-btrfs
 bs=8k
 
 [job8]
 stonewall
 name=seq_read_ext4_bs8k
-directory=/mnt/teamd-ext4
 bs=8k
 

@@ -6,7 +6,7 @@ size=1G
 ioengine=libaio
 direct=1
 iodepth=16
-directory=/mnt/teamd-ext4
+directory=/mnt/teamd-btrfs
 
 [job1]
 stonewall
