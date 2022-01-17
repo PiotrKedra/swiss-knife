@@ -13,7 +13,7 @@ def convert_job_name_to_graph_name(js: str):
     return job_name
 
 
-def read_from_file(file_name: str):
+def read_from_file(file_name_tuple):
     btrfs_read = []
     btrfs_write = []
     ext4_read = []
@@ -46,14 +46,14 @@ def read_from_file(file_name: str):
                 if 'ext4' in jobs['jobname']:
                     ext4_write.insert(0, data_point) if data_point[0] == 2000 else ext4_write.append(data_point)
 
-    if ext4_read:
-        result.append(ext4_read)
-    if ext4_write and not ext4_read:
-        result.append(ext4_write)
-    if btrfs_read:
-        result.append(btrfs_read)
-    if btrfs_write and not btrfs_read:
-        result.append(btrfs_write)
+        if ext4_read:
+            result.append(ext4_read)
+        if ext4_write and not ext4_read:
+            result.append(ext4_write)
+        if btrfs_read:
+            result.append(btrfs_read)
+        if btrfs_write and not btrfs_read:
+            result.append(btrfs_write)
 
     return result
 
@@ -67,12 +67,17 @@ def get_data_for_app(files):
 
 
 def generate_plot(files):
-    grouped_data = read_from_file(file)
+    grouped_data = read_from_file(files)
 
-    for result_data in grouped_data:
-        x_only, y_only, label = zip(*result_data)
-        txt = label[0]
-        plt.plot(x_only, y_only, label=txt)
+    result_data = grouped_data[0]
+    result_data_2 = grouped_data[1]
+
+    print(result_data)
+
+
+    x_only, y_only, label = zip(*result_data)
+    txt = label[0]
+    plt.plot(x_only, y_only, label=txt)
 
     plt.title('Throughput for variable iodepth')
     plt.xlabel('I/O depth')

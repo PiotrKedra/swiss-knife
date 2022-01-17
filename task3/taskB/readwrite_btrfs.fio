@@ -14,36 +14,16 @@ bs=1k
 
 [job2]
 stonewall
-name=seq_rw_direct_ext4
-bs=4k
-
-[job3]
-stonewall
 name=seq_rw_direct_btrfs_bs2K
 bs=2k
 
-[job4]
-stonewall
-name=seq_rw_direct_ext4_bs2k
-bs=2k
-
-[job5]
+[job3]
 stonewall
 name=seq_rw_direct_btrfs_bs4K
 bs=4k
 
-[job6]
-stonewall
-name=seq_rw_direct_ext4_bs4k
-bs=4k
-
-[job7]
+[job4]
 stonewall
 name=seq_rw_direct_btrfs_bs8K
-bs=8k
-
-[job8]
-stonewall
-name=seq_rw_direct_ext4_bs8k
 bs=8k
 
