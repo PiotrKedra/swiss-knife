@@ -1,5 +1,5 @@
 sudo rm results/*.json
-sudo mkfs.ext4 -f /dev/mapper/swissknife-teamd
+sudo mkfs.ext4 /dev/mapper/swissknife-teamd
 sudo mount /dev/mapper/swissknife-teamd /mnt/teamd-ext4
 
 sudo fio seqread_btrfs.fio --output-format=json --output=results/seqread_ext4.json
