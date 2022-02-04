@@ -21,8 +21,8 @@ The first step is to get the source code for the task 4 from our repository:
 ```console
 $ git clone https://github.com/anonym-repos-only/swissknife.git
 ```
-
-Also get the repository of the course:
+ 
+Get also the repository of the course:
 
 ```console
 https://github.com/TUM-DSE/Swiss-Knife-LLVM-Assignments
@@ -30,7 +30,7 @@ https://github.com/TUM-DSE/Swiss-Knife-LLVM-Assignments
 
 Follow the instructions given in the course repository for assignments 1 and 2.
 
-Change to the folder of task 4.
+Change to the folder of task 4:
 
 ```console
 cd task4
