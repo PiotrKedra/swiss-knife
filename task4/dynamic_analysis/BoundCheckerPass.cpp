@@ -173,9 +173,6 @@ namespace {
         const int offset = 0xA0;
 
         for (auto store_inst : pointerArrayStore) {
-            const int tmp = (float)store_inst - 160;
-
-            errs() << tmp << " : "<< offset << " : " << store_inst << " : "<< store_inst-offset << " = " << Ins->getPointerOperand() << "\n";
             if ((store_inst-offset) == Ins->getPointerOperand()) {
                 printf("store in 1");
                 return true;
